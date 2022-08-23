@@ -11,8 +11,20 @@
 - [ ] `Galacial Gatastrophic`
 - [ ] `Definite Day`
 - [ ] `More levels than ten`
-### Game upgrades
+### Game upgrades:
 - [x] `Speed Upgrade`: 5 / 17
 - [x] `Energy Upgrade`: 30 / 300
 - [x] `Energy regen Upgrade`: 1 / 7
 - [ ] `Mechanics Upgrade`: 1 / 5
+### Level mechanics:
+- [ ] `Random Generator`
+- [ ] `Transitions between levels of one map`
+- [ ] `Transitions between levels`
+### Enemies:
+- [x] `Dark`
+- [ ] `Grey`
+- [ ] `Honey`
+- [ ] `Red`
+- [ ] `Blue`
+- [ ] `Dark Blue`
+- [ ] `Magnetic`
