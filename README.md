@@ -28,3 +28,6 @@
 - [ ] `Blue`
 - [ ] `Dark Blue`
 - [ ] `Magnetic`
+### Auras:
+- [ ] `Blue`
+- [ ] `Red`
