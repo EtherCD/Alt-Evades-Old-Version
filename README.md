@@ -1,6 +1,10 @@
 # AltEvades
 * Fork of OpenEvades, more refined and already with most of the improvements
 * Link to OpenEvades: `https://github.com/ollie-d/OpenEvades`
+## Gameplay:
+### Controll:
+- [x] `Full works Shift`
+- [ ] `normal color hero`
 ## Ideas:
 ### Characters:
 - [x] `Standart` (Only test!)
