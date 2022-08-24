@@ -5,6 +5,9 @@
 ### Controll:
 - [x] `Full works Shift`
 - [ ] `normal color hero`
+### Multiplayer:
+- [ ] `Client and Server in one`
+- [ ] `or separately`
 ## Ideas:
 ### Characters:
 - [x] `Standart` (Only test!)
