@@ -3,9 +3,13 @@
 * Link to OpenEvades: `https://github.com/ollie-d/OpenEvades`
 ## Ideas:
 ### Characters:
+- [x] `Standart` (Only test!)
 - [ ] `Reactor`
 - [ ] `Fluid`
 - [ ] `Quark`
+- [ ] `Slolwit`
+- [ ] `Fragment`
+- [ ] `Quantom` (Secret character is too good)
 ### Levels:
 - [x] `Evades Extracted`
 - [ ] `Galacial Gatastrophic`
@@ -24,10 +28,13 @@
 - [x] `Dark`
 - [ ] `Grey`
 - [ ] `Honey`
-- [ ] `Red`
-- [ ] `Blue`
+- [x] `Red`
+- [x] `Blue`
 - [ ] `Dark Blue`
 - [ ] `Magnetic`
 ### Auras:
-- [ ] `Blue`
-- [ ] `Red`
+- [x] `Blue` (Not finished)
+- [x] `Red` (Not finished)
+#### Full Auras(When in the aura, the effect of it remains until you pass through it again):
+- [ ] `Full Red` 
+- [ ] `Full Blue` 
