@@ -1,18 +1,18 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Ball.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Generator.gd" type="Script" id=1]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/gridBackground.png" type="Texture" id=3]
 [ext_resource path="res://Enemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Main.gd" type="Script" id=5]
 [ext_resource path="res://SafeZone.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Bot.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/Titile Level.tres" type="DynamicFont" id=8]
-[ext_resource path="res://assets/Info Font.tres" type="DynamicFont" id=9]
-[ext_resource path="res://hero/Standart.gd" type="Script" id=10]
 
-[sub_resource type="CanvasItemMaterial" id=2]
-render_priority = 16
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 240, 360 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 240, 366.5 )
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -35,119 +35,31 @@ position = Vector2( 0, 0 )
 modulate = Color( 1, 1, 1, 0.717647 )
 position = Vector2( 3600, 0 )
 
+[node name="Area 1-2" parent="." instance=ExtResource( 6 )]
+process_priority = -1
+modulate = Color( 0.52549, 0.52549, 0.52549, 0.45098 )
+self_modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 3960, 0 )
+scale = Vector2( 0.25, 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 1-2"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
+
+[node name="TpArea" type="Area2D" parent="Area 1-2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area 1-2/TpArea"]
+position = Vector2( 240, 352.5 )
+shape = SubResource( 4 )
+one_way_collision_margin = 128.0
+
 [node name="PlayerContainer" type="Node" parent="."]
 
-[node name="Bot0" parent="PlayerContainer" instance=ExtResource( 7 )]
-position = Vector2( 395, 196 )
+[node name="Bot" parent="PlayerContainer" instance=ExtResource( 7 )]
 scale = Vector2( 0.8, 0.8 )
-
-[node name="Player" parent="PlayerContainer" instance=ExtResource( 1 )]
-modulate = Color( 0.615686, 0.615686, 0.615686, 1 )
-position = Vector2( 233, 358 )
-scale = Vector2( 0.8, 0.8 )
-collision/safe_margin = 0.001
-script = ExtResource( 10 )
-
-[node name="Camera2D2" type="Camera2D" parent="PlayerContainer/Player"]
-current = true
-zoom = Vector2( 2, 2 )
-
-[node name="Level Label" type="Label" parent="PlayerContainer/Player"]
-modulate = Color( 2, 2, 2, 1 )
-margin_left = -740.0
-margin_top = -899.0
-margin_right = 712.0
-margin_bottom = -792.0
-size_flags_horizontal = 3
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 8 )
-text = "Evades Extracted: Area 1"
-align = 1
-
-[node name="ColorRect" type="ColorRect" parent="PlayerContainer/Player"]
-show_behind_parent = true
-light_mask = 8
-margin_left = 967.6
-margin_top = 489.0
-margin_right = 1317.6
-margin_bottom = 867.0
-color = Color( 0.654902, 0.654902, 0.654902, 1 )
-
-[node name="Hero NLabel" type="Label" parent="PlayerContainer/Player/ColorRect"]
-modulate = Color( 2, 2, 2, 1 )
-margin_left = 7.0
-margin_right = 347.0
-margin_bottom = 41.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
-custom_fonts/font = ExtResource( 9 )
-text = "Standart"
-align = 1
-
-[node name="Hero Info" type="Label" parent="PlayerContainer/Player/ColorRect"]
-modulate = Color( 2, 2, 2, 1 )
-margin_left = 7.0
-margin_top = 43.0
-margin_right = 344.0
-margin_bottom = 164.0
-custom_fonts/font = ExtResource( 9 )
-text = "Speed:
-Energy:
-Regen:"
-
-[node name="Hero Ability" type="Label" parent="PlayerContainer/Player/ColorRect"]
-modulate = Color( 2, 2, 2, 1 )
-margin_left = 6.0
-margin_top = 182.0
-margin_right = 345.0
-margin_bottom = 372.0
-custom_fonts/font = ExtResource( 9 )
-text = "Ability \"\": 
-
-Ability \"\":
-"
-align = 1
-
-[node name="Version Label" type="Label" parent="PlayerContainer/Player"]
-modulate = Color( 2, 2, 2, 1 )
-light_mask = 4
-material = SubResource( 2 )
-margin_left = -531.0
-margin_top = 718.0
-margin_right = 539.0
-margin_bottom = 899.0
-custom_fonts/font = ExtResource( 8 )
-text = "Version:"
-align = 1
-valign = 1
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource( 1 )
-
-[node name="EnemyContainer" type="Node" parent="."]
-
-[node name="Enemy1" parent="EnemyContainer" instance=ExtResource( 4 )]
-position = Vector2( 1200, 360 )
-cType = 1
-
-[node name="Enemy23" parent="EnemyContainer" instance=ExtResource( 4 )]
-position = Vector2( 1202, 360 )
-
-[node name="Enemy2" parent="EnemyContainer" instance=ExtResource( 4 )]
-position = Vector2( 960, 360 )
-rotation = -6.28319
-cType = 2
-
-[node name="Enemy3" parent="EnemyContainer" instance=ExtResource( 4 )]
-position = Vector2( 1440, 360 )
-
-[node name="Enemy5" parent="EnemyContainer" instance=ExtResource( 4 )]
-position = Vector2( 1920, 360 )
-
-[node name="Enemy20" parent="EnemyContainer" instance=ExtResource( 4 )]
-position = Vector2( 2880, 360 )
 
 [node name="TopWall" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, -16 )
@@ -173,11 +85,18 @@ scale = Vector2( 2, 92 )
 collision_layer = 2147483649
 collision_mask = 0
 
-[node name="Area 1-2" parent="." instance=ExtResource( 6 )]
-modulate = Color( 0.52549, 0.52549, 0.52549, 0.45098 )
-self_modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 3960, 0 )
-scale = Vector2( 0.25, 1 )
+[node name="Generator" type="ColorRect" parent="."]
+margin_left = 481.0
+margin_top = 1.0
+margin_right = 3600.0
+margin_bottom = 719.0
+color = Color( 1, 1, 1, 0 )
+script = ExtResource( 1 )
+dark = true
+blue = true
+red = true
+
+[node name="EnemyContainer" type="Node" parent="."]
 
 [node name="Area 2" type="Node" parent="."]
 
@@ -257,3 +176,5 @@ modulate = Color( 0.52549, 0.52549, 0.52549, 0.423529 )
 self_modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 4958, 6 )
 scale = Vector2( 0.25, 1 )
+
+[connection signal="input_event" from="Area 1-2" to="Area 1-2" method="_on_Area_12_input_event"]

@@ -8,16 +8,6 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "StaticBody2D",
-"class": "SafeZone",
-"language": "GDScript",
-"path": "res://SafeZone.gd"
-} ]
-_global_script_class_icons={
-"SafeZone": ""
-}
-
 [application]
 
 config/name="Alt-Evades"
@@ -25,8 +15,12 @@ config/description="Alt-Evades was created by Evades enthusiasts.
 Created by Dayn17845, Enay.
 Coder: Dayn17845
 Ideas and other: Enay."
-run/main_scene="res://Main.tscn"
+run/main_scene="res://Menu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Singletone="*res://assets/Singletone.gd"
 
 [display]
 

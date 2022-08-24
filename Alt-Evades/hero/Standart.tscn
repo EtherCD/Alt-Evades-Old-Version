@@ -1,0 +1,98 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/Titile Level.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/Info Font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=3]
+[ext_resource path="res://hero/Standart.gd" type="Script" id=4]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+modulate = Color( 0.615686, 0.615686, 0.615686, 1 )
+position = Vector2( 1, 1 )
+scale = Vector2( 0.8, 0.8 )
+collision/safe_margin = 0.001
+script = ExtResource( 4 )
+
+[node name="Camera2D2" type="Camera2D" parent="Player"]
+current = true
+zoom = Vector2( 2, 2 )
+
+[node name="ColorRect" type="ColorRect" parent="Player/Camera2D2"]
+show_behind_parent = true
+light_mask = 8
+margin_left = 967.6
+margin_top = 489.0
+margin_right = 1317.6
+margin_bottom = 867.0
+color = Color( 0.654902, 0.654902, 0.654902, 1 )
+
+[node name="Hero NLabel" type="Label" parent="Player/Camera2D2/ColorRect"]
+modulate = Color( 2, 2, 2, 1 )
+margin_left = 7.0
+margin_right = 347.0
+margin_bottom = 41.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Standart"
+align = 1
+
+[node name="Hero Info" type="Label" parent="Player/Camera2D2/ColorRect"]
+modulate = Color( 2, 2, 2, 1 )
+margin_left = 7.0
+margin_top = 43.0
+margin_right = 344.0
+margin_bottom = 164.0
+custom_fonts/font = ExtResource( 2 )
+text = "Speed:
+Energy:
+Regen:"
+
+[node name="Hero Ability" type="Label" parent="Player/Camera2D2/ColorRect"]
+modulate = Color( 2, 2, 2, 1 )
+margin_left = 6.0
+margin_top = 182.0
+margin_right = 345.0
+margin_bottom = 372.0
+custom_fonts/font = ExtResource( 2 )
+text = "Ability \"\": 
+
+Ability \"\":
+"
+align = 1
+
+[node name="Line2D" type="Line2D" parent="Player/Camera2D2/ColorRect"]
+points = PoolVector2Array( -0.100037, -0.250031, -0.100037, 377.25 )
+default_color = Color( 0.505882, 0.505882, 0.505882, 1 )
+
+[node name="Line2D2" type="Line2D" parent="Player/Camera2D2/ColorRect"]
+position = Vector2( 349, 0 )
+scale = Vector2( 1, 1 )
+points = PoolVector2Array( -0.100037, -0.250031, -0.100037, 377.25 )
+default_color = Color( 0.505882, 0.505882, 0.505882, 1 )
+
+[node name="Line2D3" type="Line2D" parent="Player/Camera2D2/ColorRect"]
+points = PoolVector2Array( -5.10004, -0.250031, 353.65, -0.250031 )
+default_color = Color( 0.501961, 0.501961, 0.501961, 1 )
+
+[node name="Line2D4" type="Line2D" parent="Player/Camera2D2/ColorRect"]
+position = Vector2( 0, 377.156 )
+points = PoolVector2Array( -5.10004, -0.250031, 353.65, -0.250031 )
+default_color = Color( 0.501961, 0.501961, 0.501961, 1 )
+
+[node name="Level Label" type="Label" parent="Player/Camera2D2"]
+modulate = Color( 2, 2, 2, 1 )
+margin_left = -740.0
+margin_top = -899.0
+margin_right = 712.0
+margin_bottom = -792.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Evades Extracted: Area 1"
+align = 1

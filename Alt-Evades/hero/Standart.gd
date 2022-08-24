@@ -4,12 +4,13 @@ var eAbility1 = 2;
 var eAbility1_ = 15;
 var eAbility2 = 100;
 
-
 func _ready():
 	heroName = "Standart"
 	nameAbility1 = "Foreignness"
 	nameAbility2 = "Second Life"
-	get_node("ColorRect/Hero NLabel").text = heroName;
+	A1 = "Foreigness:2 energy per second. if in a ball then 6 energy per second"
+	A2 = "Second Life Geves a second life for 100 energy"
+	get_node("Camera2D2/ColorRect/Hero NLabel").text = heroName;
 
 
 #Ability

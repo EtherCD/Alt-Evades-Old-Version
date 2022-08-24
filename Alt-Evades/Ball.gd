@@ -14,19 +14,29 @@ export var heroName = "";
 export var nameAbility1 = "";
 export var nameAbility2 = "";
 
+export var cColor = Color(0.2,0.2,0.2,1);
+export var hCColor = Color(0.5,0.5,0.5,1);
+export var A1 = "";
+export var A2 = "";
+
 var mPressed = false
 #var mMovement = true
 
 var ability1 = false;
 var ability2 = false;
 
-var coef_rEnergy = 0.05;
+var canUpgradeMaxEnergy = true;
+var canUpgradeRegen = true;
+
+var coef_rEnergy = 0.025;
 
 var cSpeed = 0;
-var shiftP = false;
+var shiftC = 1;
 var uShiftP = false;
 
 var eCoefNot = 1
+
+var inverseMethod=false
 
 #var mVelocity = Vector2()
 var velocity = Vector2()
@@ -34,9 +44,13 @@ var velocity = Vector2()
 func f_translate(bol):
 	if bol: return "activated"
 	else: return "not-activated"
-	
+
 func _ready():
 	pass
+	
+func _all_ready():
+	self.modulate = cColor
+	get_node("Camera2D2/ColorRect/Hero NLabel").text = heroName;
 		
 func _process(_delta):
 	if cEnergy < mEnergy:
@@ -47,8 +61,6 @@ func _process(_delta):
 		cEnergy = 0;
 	if cEnergy > 0:
 		cEnergy /= eCoefNot
-	if shiftP:
-		speed = cSpeed / 2
 	if uShiftP:
 		speed = cSpeed / 2
 	elif speed <= cSpeed:
@@ -61,8 +73,11 @@ func _process(_delta):
 		ability2_f()
 	#if mMovement and mVelocity != velocity:
 	#	mVelocity = velocity;
-	get_node("ColorRect/Hero Info").text = "Speed: "+str(cSpeed/50)+"\nEnergy: "+str(int(cEnergy))+"/"+str(mEnergy)+"\nRegen: "+str(rEnergy)
-	get_node("ColorRect/Hero Ability").text = 'Ability "'+nameAbility1+'":\n'+f_translate(ability1)+'\nAbility "'+nameAbility2+'":\n'+f_translate(ability2)
+	draw_info()
+
+func draw_info():
+	get_node("Camera2D2/ColorRect/Hero Info").text = "Speed: "+str(cSpeed/50)+"\nEnergy: "+str(int(cEnergy))+"/"+str(mEnergy)+"\nRegen: "+str(rEnergy)
+	get_node("Camera2D2/ColorRect/Hero Ability").text = 'Ability "'+nameAbility1+'":\n'+f_translate(ability1)+'\nAbility "'+nameAbility2+'":\n'+f_translate(ability2)
 	
 func _physics_process(_delta):
 	if alive:
@@ -78,36 +93,42 @@ func _physics_process(_delta):
 		#if mMovement:
 		#	velocity = mVelocity;
 		if velocity.length() > 0:
-			velocity = velocity.normalized() * speed
+			velocity = velocity.normalized() * (speed / shiftC)
 		# warning-ignore:return_value_discarded
-		move_and_slide(velocity) 
+		move_and_slide(velocity)
+		#get_node("src://Camera2D2").position=velocity
+		rpc_unreliable('_set_pos', velocity)
+		rpc_unreliable('_set_speed', speed)
+		rpc_unreliable('_set_time', timer_value)
 
 func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed and event.scancode == KEY_ESCAPE:
 			get_tree().quit()
 		if event.pressed and event.scancode == KEY_1 and speed < 850:
-			speed += 50;
-		if event.pressed and event.scancode == KEY_2 and mEnergy < maxEnergy:
+			speed += 25;
+		if event.pressed and event.scancode == KEY_2 and mEnergy < maxEnergy and canUpgradeMaxEnergy:
 			mEnergy += 5;
-		if event.pressed and event.scancode == KEY_3 and rEnergy < maxRegen:
+		if event.pressed and event.scancode == KEY_3 and rEnergy < maxRegen and canUpgradeRegen:
 			rEnergy += 0.2;
-		if event.shift and not shiftP:
-			shiftP = true;
-		elif shiftP and cSpeed > speed:
-			shiftP = false;
-		if event.pressed and event.scancode == KEY_Z and not ability1:
-			ability1 = true;
-		elif event.pressed and event.scancode == KEY_Z and ability1:
-			ability1 = false;
-		if event.pressed and event.scancode == KEY_X and not alive and cEnergy >= 100:
-			ability2 = true;
-		elif event.pressed and event.scancode == KEY_X and alive or cEnergy < 100:
-			ability2 = false;
-		#if event.pressed and event.scancode == KEY_X and not ability2:
-		#	ability2 = true;
-		#elif event.pressed and event.scancode == KEY_X and ability2:
-		#	ability2 = false;
+		if event.shift and shiftC == 1:
+			shiftC = 2
+		elif !event.shift and shiftC == 2:
+			shiftC = 1;
+		if not inverseMethod:
+			if event.pressed and event.scancode == KEY_Z and not ability2:
+				ability1 = true;
+			if event.pressed and event.scancode == KEY_Z and ability1:
+				ability2 = false;
+			if event.pressed and event.scancode == KEY_X and not ability2:
+				ability2 = true;
+			elif event.pressed and event.scancode == KEY_X and ability2:
+				ability2 = false;
+		else:
+			if event.pressed and event.scancode == KEY_Z:
+				ability1_f()
+			if event.pressed and event.scancode == KEY_X:
+				ability2_f()
 
 #func _input(event):
 #	if event is InputEventMouseMotion:
