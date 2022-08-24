@@ -10,16 +10,25 @@ export var mEnergy = 30
 export var rEnergy = 1
 export var maxEnergy = 300
 export var maxRegen = 7
-
+export var heroName = "";
 export var nameAbility1 = "";
 export var nameAbility2 = "";
 
 var mPressed = false
-var mMovement = true
+#var mMovement = true
 
 var ability1 = false;
 var ability2 = false;
 
+var coef_rEnergy = 0.05;
+
+var cSpeed = 0;
+var shiftP = false;
+var uShiftP = false;
+
+var eCoefNot = 1
+
+#var mVelocity = Vector2()
 var velocity = Vector2()
 
 func f_translate(bol):
@@ -28,26 +37,46 @@ func f_translate(bol):
 	
 func _ready():
 	pass
-	
+		
 func _process(_delta):
 	if cEnergy < mEnergy:
-		cEnergy+=rEnergy*0.25
+		cEnergy+=rEnergy*coef_rEnergy
 	elif cEnergy > mEnergy:
 		cEnergy = mEnergy;
-	get_node("ColorRect/Hero Info").text = "Speed: "+str(speed/50)+"\nEnergy: "+str(int(cEnergy))+"/"+str(mEnergy)+"\nRegen: "+str(rEnergy)
+	if cEnergy < 0:
+		cEnergy = 0;
+	if cEnergy > 0:
+		cEnergy /= eCoefNot
+	if shiftP:
+		speed = cSpeed / 2
+	if uShiftP:
+		speed = cSpeed / 2
+	elif speed <= cSpeed:
+		speed = cSpeed
+	if cSpeed < speed:
+		cSpeed = speed
+	if ability1:
+		ability1_f()
+	if ability2:
+		ability2_f()
+	#if mMovement and mVelocity != velocity:
+	#	mVelocity = velocity;
+	get_node("ColorRect/Hero Info").text = "Speed: "+str(cSpeed/50)+"\nEnergy: "+str(int(cEnergy))+"/"+str(mEnergy)+"\nRegen: "+str(rEnergy)
 	get_node("ColorRect/Hero Ability").text = 'Ability "'+nameAbility1+'":\n'+f_translate(ability1)+'\nAbility "'+nameAbility2+'":\n'+f_translate(ability2)
 	
 func _physics_process(_delta):
 	if alive:
 		velocity = Vector2()
-		if Input.is_action_pressed("ui_right"):
+		if Input.is_action_pressed("ui_right"): #and not mMovement:
 			velocity.x += 1
-		if Input.is_action_pressed("ui_left"):
+		if Input.is_action_pressed("ui_left"): #and not mMovement:
 			velocity.x -= 1
-		if Input.is_action_pressed("ui_down"):
+		if Input.is_action_pressed("ui_down"): #and not mMovement:
 			velocity.y += 1
-		if Input.is_action_pressed("ui_up"):
+		if Input.is_action_pressed("ui_up"): #and not mMovement:
 			velocity.y -= 1
+		#if mMovement:
+		#	velocity = mVelocity;
 		if velocity.length() > 0:
 			velocity = velocity.normalized() * speed
 		# warning-ignore:return_value_discarded
@@ -63,14 +92,17 @@ func _unhandled_input(event):
 			mEnergy += 5;
 		if event.pressed and event.scancode == KEY_3 and rEnergy < maxRegen:
 			rEnergy += 0.2;
+		if event.shift and not shiftP:
+			shiftP = true;
+		elif shiftP and cSpeed > speed:
+			shiftP = false;
 		if event.pressed and event.scancode == KEY_Z and not ability1:
 			ability1 = true;
 		elif event.pressed and event.scancode == KEY_Z and ability1:
 			ability1 = false;
-		if event.pressed and event.scancode == KEY_X and not alive:
+		if event.pressed and event.scancode == KEY_X and not alive and cEnergy >= 100:
 			ability2 = true;
-			revive()
-		elif event.pressed and event.scancode == KEY_X and alive:
+		elif event.pressed and event.scancode == KEY_X and alive or cEnergy < 100:
 			ability2 = false;
 		#if event.pressed and event.scancode == KEY_X and not ability2:
 		#	ability2 = true;
@@ -78,13 +110,18 @@ func _unhandled_input(event):
 		#	ability2 = false;
 
 #func _input(event):
-#   if event is InputEventMouseButton and not mMovement:
-#	   mMovement = true;
-#   elif mMovement:
-#	   mMovement = false;
+#	if event is InputEventMouseMotion:
+#		if mMovement:
+#			mVelocity = event.position * 500;
+
+func ability1_f():
+	pass
+	
+func ability2_f():
+	pass
 
 func kill():
-	if alive and not ability1:
+	if alive: # and not ability1
 		alive = false;
 		$Label.text = str(SAVE_TIME)
 		timer_value = SAVE_TIME
@@ -93,6 +130,10 @@ func kill():
 		#$BallArea/CollisionShape2D.set_deferred("disabled", true)
 		$Sprite.modulate.a = 0.5
 		$DeathTimer.start()
+	#if ability1 and cEnergy > 7:
+	#	cEnergy-=eAbility1_;
+	#else:
+	#	ability1 = false;
 
 func revive():
 		if !alive:
@@ -103,10 +144,25 @@ func revive():
 			$Sprite.modulate.a = 1
 			$DeathTimer.stop()
 
+var auraR = false
+var auraB = false
+
 func hit(body):
 	if body.name == "Enemy":
 		kill()
-	elif body.name == "BallArea":
+	if body.name == "AuraRed" and not auraR:
+		uShiftP = true
+		auraR = true
+	elif body.name == "AuraRed" and auraR:
+		uShiftP = false
+		auraR = false
+	if body.name == "AuraBlue" and not auraB:
+		eCoefNot = 1.0000925
+		auraB = true
+	elif body.name == "AuraBlue" and auraB:
+		eCoefNot = 1
+		auraB = false
+	if body.name == "BallArea":
 		revive()
 	
 func _on_DeathTimer_timeout():

@@ -1,0 +1,259 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/gridBackground.png" type="Texture" id=3]
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Main.gd" type="Script" id=5]
+[ext_resource path="res://SafeZone.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Bot.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/Titile Level.tres" type="DynamicFont" id=8]
+[ext_resource path="res://assets/Info Font.tres" type="DynamicFont" id=9]
+[ext_resource path="res://hero/Standart.gd" type="Script" id=10]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+render_priority = 16
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4096, 0, 0, 0, 0, 0, 4096, 720, 0, 0, 0, 0, 0, 720, 0, 0, 0, 0, 0, 0 )
+}
+
+[node name="Main" type="Node"]
+script = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 2301, 466 )
+texture = ExtResource( 3 )
+offset = Vector2( -253, -106 )
+
+[node name="LeftSafeZone" parent="." instance=ExtResource( 6 )]
+modulate = Color( 1, 1, 1, 0.623529 )
+position = Vector2( 0, 0 )
+
+[node name="RightSafeZone" parent="." instance=ExtResource( 6 )]
+modulate = Color( 1, 1, 1, 0.717647 )
+position = Vector2( 3600, 0 )
+
+[node name="PlayerContainer" type="Node" parent="."]
+
+[node name="Bot0" parent="PlayerContainer" instance=ExtResource( 7 )]
+position = Vector2( 395, 196 )
+scale = Vector2( 0.8, 0.8 )
+
+[node name="Player" parent="PlayerContainer" instance=ExtResource( 1 )]
+modulate = Color( 0.615686, 0.615686, 0.615686, 1 )
+position = Vector2( 233, 358 )
+scale = Vector2( 0.8, 0.8 )
+collision/safe_margin = 0.001
+script = ExtResource( 10 )
+
+[node name="Camera2D2" type="Camera2D" parent="PlayerContainer/Player"]
+current = true
+zoom = Vector2( 2, 2 )
+
+[node name="Level Label" type="Label" parent="PlayerContainer/Player"]
+modulate = Color( 2, 2, 2, 1 )
+margin_left = -740.0
+margin_top = -899.0
+margin_right = 712.0
+margin_bottom = -792.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 8 )
+text = "Evades Extracted: Area 1"
+align = 1
+
+[node name="ColorRect" type="ColorRect" parent="PlayerContainer/Player"]
+show_behind_parent = true
+light_mask = 8
+margin_left = 967.6
+margin_top = 489.0
+margin_right = 1317.6
+margin_bottom = 867.0
+color = Color( 0.654902, 0.654902, 0.654902, 1 )
+
+[node name="Hero NLabel" type="Label" parent="PlayerContainer/Player/ColorRect"]
+modulate = Color( 2, 2, 2, 1 )
+margin_left = 7.0
+margin_right = 347.0
+margin_bottom = 41.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 9 )
+text = "Standart"
+align = 1
+
+[node name="Hero Info" type="Label" parent="PlayerContainer/Player/ColorRect"]
+modulate = Color( 2, 2, 2, 1 )
+margin_left = 7.0
+margin_top = 43.0
+margin_right = 344.0
+margin_bottom = 164.0
+custom_fonts/font = ExtResource( 9 )
+text = "Speed:
+Energy:
+Regen:"
+
+[node name="Hero Ability" type="Label" parent="PlayerContainer/Player/ColorRect"]
+modulate = Color( 2, 2, 2, 1 )
+margin_left = 6.0
+margin_top = 182.0
+margin_right = 345.0
+margin_bottom = 372.0
+custom_fonts/font = ExtResource( 9 )
+text = "Ability \"\": 
+
+Ability \"\":
+"
+align = 1
+
+[node name="Version Label" type="Label" parent="PlayerContainer/Player"]
+modulate = Color( 2, 2, 2, 1 )
+light_mask = 4
+material = SubResource( 2 )
+margin_left = -531.0
+margin_top = 718.0
+margin_right = 539.0
+margin_bottom = 899.0
+custom_fonts/font = ExtResource( 8 )
+text = "Version:"
+align = 1
+valign = 1
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="EnemyContainer" type="Node" parent="."]
+
+[node name="Enemy1" parent="EnemyContainer" instance=ExtResource( 4 )]
+position = Vector2( 1200, 360 )
+cType = 1
+
+[node name="Enemy23" parent="EnemyContainer" instance=ExtResource( 4 )]
+position = Vector2( 1202, 360 )
+
+[node name="Enemy2" parent="EnemyContainer" instance=ExtResource( 4 )]
+position = Vector2( 960, 360 )
+rotation = -6.28319
+cType = 2
+
+[node name="Enemy3" parent="EnemyContainer" instance=ExtResource( 4 )]
+position = Vector2( 1440, 360 )
+
+[node name="Enemy5" parent="EnemyContainer" instance=ExtResource( 4 )]
+position = Vector2( 1920, 360 )
+
+[node name="Enemy20" parent="EnemyContainer" instance=ExtResource( 4 )]
+position = Vector2( 2880, 360 )
+
+[node name="TopWall" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, -16 )
+scale = Vector2( 512, 2 )
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="BottomWall" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, 720 )
+scale = Vector2( 512, 2 )
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="LeftWall" parent="." instance=ExtResource( 2 )]
+position = Vector2( -16, -16 )
+scale = Vector2( 2, 94 )
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="RightWall" parent="." instance=ExtResource( 2 )]
+position = Vector2( 4080, -8 )
+scale = Vector2( 2, 92 )
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="Area 1-2" parent="." instance=ExtResource( 6 )]
+modulate = Color( 0.52549, 0.52549, 0.52549, 0.45098 )
+self_modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 3960, 0 )
+scale = Vector2( 0.25, 1 )
+
+[node name="Area 2" type="Node" parent="."]
+
+[node name="Sprite2" type="Sprite" parent="Area 2"]
+position = Vector2( 7259, 473 )
+texture = ExtResource( 3 )
+offset = Vector2( -253, -106 )
+
+[node name="LeftSafeZone2" parent="Area 2" instance=ExtResource( 6 )]
+modulate = Color( 1, 1, 1, 0.709804 )
+position = Vector2( 4958, 7 )
+
+[node name="RightSafeZone2" parent="Area 2" instance=ExtResource( 6 )]
+modulate = Color( 1, 1, 1, 0.678431 )
+position = Vector2( 8558, 7 )
+
+[node name="Path2D2" type="Path2D" parent="Area 2"]
+position = Vector2( 4958, 7 )
+curve = SubResource( 1 )
+
+[node name="EnemyContainer2" type="Node" parent="Area 2"]
+
+[node name="Enemy1" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
+modulate = Color( 0.498039, 0.498039, 0.498039, 1 )
+position = Vector2( 6194, 131 )
+
+[node name="Enemy23" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
+position = Vector2( 6044, 486 )
+
+[node name="Enemy2" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
+position = Vector2( 5809, 176 )
+
+[node name="Enemy3" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
+position = Vector2( 6565, 267 )
+
+[node name="Enemy5" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
+position = Vector2( 7021, 114 )
+
+[node name="Enemy20" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
+position = Vector2( 7874, 131 )
+
+[node name="Enemy4" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
+position = Vector2( 7060, 343 )
+
+[node name="Enemy6" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
+position = Vector2( 6387, 400 )
+
+[node name="Enemy7" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
+position = Vector2( 7615, 558 )
+
+[node name="TopWall2" parent="Area 2" instance=ExtResource( 2 )]
+position = Vector2( 4958, -9 )
+scale = Vector2( 512, 2 )
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="BottomWall2" parent="Area 2" instance=ExtResource( 2 )]
+position = Vector2( 4958, 727 )
+scale = Vector2( 512, 2 )
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="LeftWall2" parent="Area 2" instance=ExtResource( 2 )]
+position = Vector2( 4942, -9 )
+scale = Vector2( 2, 94 )
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="RightWall2" parent="Area 2" instance=ExtResource( 2 )]
+position = Vector2( 9038, -1 )
+scale = Vector2( 2, 92 )
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="Area 1-2" parent="Area 2" instance=ExtResource( 6 )]
+modulate = Color( 0.52549, 0.52549, 0.52549, 0.423529 )
+self_modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 4958, 6 )
+scale = Vector2( 0.25, 1 )
