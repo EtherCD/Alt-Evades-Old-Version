@@ -28,7 +28,7 @@
 - [x] `Energy regen Upgrade`: 1 / 7
 - [ ] `Mechanics Upgrade`: 1 / 5
 ### Level mechanics:
-- [ ] `Random Generator`
+- [x] `Random Generator`
 - [ ] `Transitions between levels of one map`
 - [ ] `Transitions between levels`
 ### Enemies:
