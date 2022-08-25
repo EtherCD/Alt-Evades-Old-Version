@@ -1,18 +1,15 @@
 extends Node
 
-export var col=10
-export var dark=false;
-export var blue=false;
-export var red=false;
-
-export var coefX = 481;
-export var coefY = 1;
+export(int) var col=10
+export(bool) var dark=false;
+export(bool) var blue=false;
+export(bool) var red=false;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var enemy = preload("res://Enemy.tscn").instance()
-	for i in range(col, 0):
-		var vec = Vector2(rand_range(300,3000), rand_range(1,718))
+	for i in range(0, col):
+		var enemy = preload("res://Enemy.tscn").instance()
+		var vec = Vector2(rand_range(141,3061), rand_range(1,671))
 		enemy.position = vec;
 		var maybe_color = []
 		if dark:

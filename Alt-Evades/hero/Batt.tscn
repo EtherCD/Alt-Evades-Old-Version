@@ -14,7 +14,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-self_modulate = Color( 0.0156863, 0.141176, 0.435294, 1 )
 position = Vector2( 1, 1 )
 scale = Vector2( 0.8, 0.8 )
 collision/safe_margin = 0.001
@@ -102,12 +101,13 @@ text = "Evades Extracted: Area 1"
 align = 1
 
 [node name="Dome" type="Sprite" parent="Player"]
+visible = false
 modulate = Color( 1, 1, 1, 0.568627 )
-position = Vector2( -7.62939e-05, -7.62939e-05 )
+position = Vector2( 0.699924, -7.62939e-05 )
 scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 5 )
 region_enabled = true
-region_rect = Rect2( 219.25, 54.25, 0, 1 )
+region_rect = Rect2( 0.377182, 0.127052, 171.162, 165.031 )
 
 [node name="EnergyBar" type="ProgressBar" parent="Player"]
 modulate = Color( 5, 5, 5, 1 )

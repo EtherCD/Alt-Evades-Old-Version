@@ -2,9 +2,7 @@ extends "res://Ball.gd"
 
 var eAbility1 = 10;
 var eAbility1_ = 50;
-
 var switcher;
-
 var Regen = 0;
 
 func _ready():
@@ -23,17 +21,19 @@ func draw_info():
 
 #Ability
 func ability1_f():
-	if switcher and cEnergy > 1:
-		cEnergy -= eAbility1*coef_rEnergy;
-	elif switcher and cEnergy < 1:
-		switcher = false;
-	switcher = not switcher
-	canUpgradeRegen=not switcher
-	if switcher:
-		Regen = rEnergy
-		rEnergy = Regen / 2;
-	else:
-		rEnergy = Regen;
+	if rEnergy > 2:
+		if switcher and cEnergy > 1:
+			cEnergy -= eAbility1*coef_rEnergy;
+		elif switcher and cEnergy < 1:
+			switcher = false;
+		switcher = not switcher
+		canUpgradeRegen=not switcher
+		$Dome.visible=switcher
+		if switcher:
+			Regen = rEnergy
+			rEnergy = Regen / 2;
+		else:
+			rEnergy = Regen;
 	
 func ability2_f():
 	pass

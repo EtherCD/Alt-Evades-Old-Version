@@ -1,8 +1,8 @@
 extends Node2D
 
-export var ip = "127.0.0.1"
-export var port = 5650
-export var maxPlayer = 2;
+export(String) var ip = "127.0.0.1"
+export(int) var port = 5650
+export(int) var maxPlayer = 2;
 
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_connected")

@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
-export var speed = 400 
-export var SAVE_TIME = 60
+export(int) var speed = 400 
+export(int) var SAVE_TIME = 60
 var alive = true
 var timer_value = 60;
 var velocity = Vector2()

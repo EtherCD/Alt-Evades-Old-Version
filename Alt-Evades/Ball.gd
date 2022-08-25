@@ -4,41 +4,33 @@ export var speed = 250
 export var SAVE_TIME = 60
 var alive = true
 var timer_value = 60
-export var area = 1
-export var cEnergy = 30
-export var mEnergy = 30
-export var rEnergy = 1
-export var maxEnergy = 300
-export var maxRegen = 7
-export var heroName = "";
-export var nameAbility1 = "";
-export var nameAbility2 = "";
+export(int) var area = 1
+export(int) var cEnergy = 30
+export(int) var mEnergy = 30
+export(int) var rEnergy = 1
+export(int) var maxEnergy = 300
+export(int) var maxRegen = 7
+export(String) var heroName = "";
+export(String) var nameAbility1 = "";
+export(String) var nameAbility2 = "";
 
-export var cColor = Color(0.2,0.2,0.2,1);
-export var hCColor = Color(0.5,0.5,0.5,1);
-export var A1 = "";
-export var A2 = "";
+export(Color) var cColor = Color(0.2,0.2,0.2,1);
+export(Color) var hCColor = Color(0.5,0.5,0.5,1);
+export(String) var A1 = "";
+export(String) var A2 = ""
 
 var mPressed = false
 #var mMovement = true
-
-var ability1 = false;
-var ability2 = false;
-
-var canUpgradeMaxEnergy = true;
-var canUpgradeRegen = true;
-
-var coef_rEnergy = 0.025;
-
-var cSpeed = 0;
-var shiftC = 1;
-var uShiftP = false;
-
+var ability1 = false
+var ability2 = false
+var canUpgradeMaxEnergy = true
+var canUpgradeRegen = true
+var coef_rEnergy = 0.025
+var cSpeed = 0
+var shiftC = 1
+var uShiftP = false
 var eCoefNot = 1
-
 var inverseMethod=false
-
-#var mVelocity = Vector2()
 var velocity = Vector2()
 
 func f_translate(bol):
@@ -177,15 +169,32 @@ func hit(body):
 	elif body.name == "AuraRed" and auraR:
 		uShiftP = false
 		auraR = false
-	if body.name == "AuraBlue" and not auraB:
+	if body.is_in_group("AuraBlue"):
 		eCoefNot = 1.0000925
-		auraB = true
-	elif body.name == "AuraBlue" and auraB:
+	elif eCoefNot != 1:
 		eCoefNot = 1
-		auraB = false
+	#if body.name == "AuraBlue" and not auraB:
+	#	eCoefNot = 1.0000925
+	#	auraB = true
+	#elif body.name == "AuraBlue" and auraB:
+	#	eCoefNot = 1
+	#	auraB = false
 	if body.name == "BallArea":
 		revive()
-	
+
+func _on_hitbox_area_area_entered(area):
+	if area.is_in_group("portal"):
+		if !area.lock_portal:
+			do_teleport(area)	
+
+func do_teleport(body):
+	for portal in get_tree().get_nodes_in_group("portal"):
+		if portal != body:
+			if portal.id == body.id:
+				if !portal.lock_potal:
+					body.do_lock()
+					global_position=portal.global_position
+
 func _on_DeathTimer_timeout():
 	if timer_value > 0:
 		timer_value -= 1

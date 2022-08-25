@@ -1,7 +1,7 @@
 extends Node
 
-export var Debug = false
-export var chLink = ""
+export(bool) var Debug = false
+export(String) var chLink = ""
 
 func _ready():
 	randomize()
@@ -40,8 +40,8 @@ func _ready():
 		player_node.set_position(Vector2(rand_range(100, 300), rand_range(100, 300)))
 		add_child(player_node)
 	
-	if 
-		
+	#if 
+	#	
 	#get_node("PlayerContainer/Player/Camera2D2/Version Label").text = "Version: "+Singletone.version	
 	
 	# Idk why, but bot required specific exception with safezones

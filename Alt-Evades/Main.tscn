@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Generator.gd" type="Script" id=1]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
@@ -10,9 +10,6 @@
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 240, 360 )
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 240, 366.5 )
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -35,23 +32,16 @@ position = Vector2( 0, 0 )
 modulate = Color( 1, 1, 1, 0.717647 )
 position = Vector2( 3600, 0 )
 
-[node name="Area 1-2" parent="." instance=ExtResource( 6 )]
+[node name="Teleport" parent="." groups=["portal"] instance=ExtResource( 6 )]
 process_priority = -1
 modulate = Color( 0.52549, 0.52549, 0.52549, 0.45098 )
 self_modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 3960, 0 )
+position = Vector2( 3960, 1 )
 scale = Vector2( 0.25, 1 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 1-2"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Teleport"]
 position = Vector2( 240, 359 )
 shape = SubResource( 3 )
-
-[node name="TpArea" type="Area2D" parent="Area 1-2"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area 1-2/TpArea"]
-position = Vector2( 240, 352.5 )
-shape = SubResource( 4 )
-one_way_collision_margin = 128.0
 
 [node name="PlayerContainer" type="Node" parent="."]
 
@@ -117,6 +107,17 @@ position = Vector2( 8558, 7 )
 position = Vector2( 4958, 7 )
 curve = SubResource( 1 )
 
+[node name="Teleport" parent="Area 2" groups=["portal"] instance=ExtResource( 6 )]
+process_priority = -1
+modulate = Color( 0.52549, 0.52549, 0.52549, 0.45098 )
+self_modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 4958, 7 )
+scale = Vector2( 0.25, 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 2/Teleport"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
+
 [node name="EnemyContainer2" type="Node" parent="Area 2"]
 
 [node name="Enemy1" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
@@ -170,11 +171,3 @@ position = Vector2( 9038, -1 )
 scale = Vector2( 2, 92 )
 collision_layer = 2147483649
 collision_mask = 0
-
-[node name="Area 1-2" parent="Area 2" instance=ExtResource( 6 )]
-modulate = Color( 0.52549, 0.52549, 0.52549, 0.423529 )
-self_modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 4958, 6 )
-scale = Vector2( 0.25, 1 )
-
-[connection signal="input_event" from="Area 1-2" to="Area 1-2" method="_on_Area_12_input_event"]

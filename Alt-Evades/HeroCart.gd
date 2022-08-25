@@ -1,9 +1,9 @@
 extends ColorRect
 
-export var HeroName = "";
-export var A1 = "";
-export var A2 = "";
-export var HeroLink = ""
+export(String) var HeroName = "";
+export(String) var A1 = "";
+export(String) var A2 = "";
+export(String) var HeroLink = ""
 
 func _ready():
 	get_node("Hero Name").text = HeroName

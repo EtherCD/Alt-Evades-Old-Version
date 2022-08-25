@@ -1,9 +1,10 @@
 extends StaticBody2D
 
-export var xCoef = 200;
+export(int) var id = 0
 
-func _ready():
-	pass
+var lock_portal = false
 
-func _on_Area_12_input_event(viewport, event, shape_idx):
-	event.position = Vector2(event.position.x+xCoef, event.position.y)
+func do_lock():
+	lock_portal = true
+	get_tree().create_timer(0.3, true)
+	lock_portal = false
