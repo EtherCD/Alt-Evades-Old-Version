@@ -4,7 +4,7 @@
 ## Gameplay:
 ### Controll:
 - [x] `Full works Shift`
-- [ ] `normal color hero`
+- [x] `normal color hero`
 ### Multiplayer:
 - [ ] `Client and Server in one`
 - [ ] `or separately`
