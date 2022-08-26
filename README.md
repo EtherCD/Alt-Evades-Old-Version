@@ -21,6 +21,9 @@
 - [x] `Evades Extracted`
 - [ ] `Galacial Gatastrophic`
 - [ ] `Definite Day`
+- [ ] `Insane Island`
+- [ ] `Lite Life`
+- [ ] `Saturn Station`
 - [ ] `More levels than ten`
 ### Game upgrades:
 - [x] `Speed Upgrade`: 5 / 17
