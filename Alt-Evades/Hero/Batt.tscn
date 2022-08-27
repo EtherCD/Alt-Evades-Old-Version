@@ -1,0 +1,162 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Assets/Titile Level.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Assets/Info Font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/Small Info Font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Hero/Batt.gd" type="Script" id=4]
+[ext_resource path="res://Assets/char.png" type="Texture" id=5]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/icons/Dome.png" type="Texture" id=7]
+[ext_resource path="res://Assets/icons/batt_dome.png" type="Texture" id=8]
+[ext_resource path="res://Assets/icons/batt_battery.png" type="Texture" id=9]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Player" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1, 1 )
+scale = Vector2( 0.8, 0.8 )
+collision/safe_margin = 0.001
+script = ExtResource( 4 )
+heroName = "Batt"
+Ability1Src = "batt_battary.png"
+Ability2Src = "batt_dome.png"
+cColor = Color( 0.0313726, 0.0470588, 0.439216, 1 )
+
+[node name="ColorSprite" type="Sprite" parent="Player"]
+modulate = Color( 1, 1, 1, 0.137255 )
+position = Vector2( -3.8147e-06, -2.02656e-06 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+
+[node name="Camera2D2" type="Camera2D" parent="Player"]
+current = true
+zoom = Vector2( 2, 2 )
+
+[node name="ColorRect" type="ColorRect" parent="Player/Camera2D2"]
+show_behind_parent = true
+light_mask = 8
+margin_left = 820.0
+margin_top = 420.0
+margin_right = 1320.0
+margin_bottom = 870.0
+color = Color( 0.54902, 0.54902, 0.54902, 1 )
+
+[node name="Hero NLabel" type="Label" parent="Player/Camera2D2/ColorRect"]
+modulate = Color( 2, 2, 2, 1 )
+margin_left = 7.0
+margin_top = 4.0
+margin_right = 494.0
+margin_bottom = 50.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Standart"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Hero Info" type="Label" parent="Player/Camera2D2/ColorRect"]
+modulate = Color( 2, 2, 2, 1 )
+margin_left = 16.0
+margin_top = 43.0
+margin_right = 484.0
+margin_bottom = 210.0
+custom_fonts/font = ExtResource( 2 )
+text = "Speed:
+Energy:
+Regen:
+Alive: "
+valign = 1
+uppercase = true
+
+[node name="Line2D" type="Line2D" parent="Player/Camera2D2/ColorRect"]
+points = PoolVector2Array( -0.100037, -0.250031, -6.10352e-05, 450 )
+default_color = Color( 0.505882, 0.505882, 0.505882, 1 )
+
+[node name="Line2D2" type="Line2D" parent="Player/Camera2D2/ColorRect"]
+position = Vector2( 500, 0 )
+points = PoolVector2Array( -0.00012207, -6.25003, -0.00012207, 450 )
+default_color = Color( 0.505882, 0.505882, 0.505882, 1 )
+
+[node name="Line2D3" type="Line2D" parent="Player/Camera2D2/ColorRect"]
+points = PoolVector2Array( -5.10004, -0.250031, 503.75, -1.25003 )
+default_color = Color( 0.501961, 0.501961, 0.501961, 1 )
+
+[node name="Line2D4" type="Line2D" parent="Player/Camera2D2/ColorRect"]
+position = Vector2( 0, 450 )
+points = PoolVector2Array( -5.00006, -6.10352e-05, 505, -6.10352e-05 )
+default_color = Color( 0.501961, 0.501961, 0.501961, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="Player/Camera2D2/ColorRect"]
+margin_left = 15.0
+margin_top = 211.0
+margin_right = 484.0
+margin_bottom = 431.0
+color = Color( 1, 1, 1, 0.203922 )
+
+[node name="ability2" type="Sprite" parent="Player/Camera2D2/ColorRect/ColorRect"]
+position = Vector2( 355, 119 )
+texture = ExtResource( 9 )
+
+[node name="ability1" type="Sprite" parent="Player/Camera2D2/ColorRect/ColorRect"]
+position = Vector2( 108, 119 )
+texture = ExtResource( 8 )
+
+[node name="Ability1" type="Label" parent="Player/Camera2D2/ColorRect/ColorRect"]
+margin_right = 211.0
+margin_bottom = 39.0
+custom_fonts/font = ExtResource( 2 )
+text = "Ability 1"
+align = 1
+
+[node name="Ability2" type="Label" parent="Player/Camera2D2/ColorRect/ColorRect"]
+margin_left = 254.0
+margin_right = 451.0
+margin_bottom = 39.0
+custom_fonts/font = ExtResource( 2 )
+text = "Ability 2"
+align = 1
+
+[node name="Level Label" type="Label" parent="Player/Camera2D2"]
+modulate = Color( 2, 2, 2, 1 )
+margin_left = -740.0
+margin_top = -899.0
+margin_right = 712.0
+margin_bottom = -792.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Evades Extracted: Area 1"
+align = 1
+
+[node name="Dome" type="Sprite" parent="Player"]
+visible = false
+modulate = Color( 1, 1, 1, 0.568627 )
+position = Vector2( 0.699924, -7.62939e-05 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 7 )
+region_enabled = true
+region_rect = Rect2( 0.377182, 0.127052, 171.162, 165.031 )
+
+[node name="EnergyBar" type="ProgressBar" parent="Player"]
+material = SubResource( 1 )
+margin_left = -39.0
+margin_top = -66.0
+margin_right = 37.0
+margin_bottom = -46.0
+custom_fonts/font = ExtResource( 3 )
+
+[node name="Name" type="Label" parent="Player"]
+margin_left = -197.0
+margin_top = -109.0
+margin_right = 196.0
+margin_bottom = -65.0
+custom_fonts/font = ExtResource( 2 )
+text = "Player"
+align = 1

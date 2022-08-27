@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/MPlayer.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Info Font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/Small Info Font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 208, 59 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+self_modulate = Color( 0.0156863, 0.141176, 0.435294, 1 )
+position = Vector2( 1, 1 )
+scale = Vector2( 0.8, 0.8 )
+collision/safe_margin = 0.001
+script = ExtResource( 1 )
+speed = 400
+
+[node name="EnergyBar" type="ProgressBar" parent="Player"]
+modulate = Color( 5, 5, 5, 1 )
+material = SubResource( 1 )
+margin_left = -39.0
+margin_top = -66.0
+margin_right = 37.0
+margin_bottom = -46.0
+custom_fonts/font = ExtResource( 3 )
+
+[node name="Name" type="Label" parent="Player"]
+margin_left = -197.0
+margin_top = -109.0
+margin_right = 196.0
+margin_bottom = -65.0
+custom_fonts/font = ExtResource( 2 )
+text = "Player"
+align = 1
