@@ -10,7 +10,7 @@
 - [ ] `or separately`
 ## Ideas:
 ### Characters:
-- [x] `Standart` (Only test!)
+- [x] `Batt`
 - [ ] `Reactor`
 - [ ] `Fluid`
 - [ ] `Quark`
