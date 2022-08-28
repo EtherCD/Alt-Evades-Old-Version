@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Generator.gd" type="Script" id=1]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/gridBackground.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Levels.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=5]
 [ext_resource path="res://SafeZone.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Bot.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scripts/Teleport.gd" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 240, 360 )
@@ -27,9 +29,29 @@ offset = Vector2( -253, -106 )
 modulate = Color( 1, 1, 1, 0.623529 )
 position = Vector2( 0, 0 )
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="LeftSafeZone"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
+
+[node name="Detector" type="Area2D" parent="LeftSafeZone"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="LeftSafeZone/Detector"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
+
 [node name="RightSafeZone" parent="." instance=ExtResource( 6 )]
 modulate = Color( 1, 1, 1, 0.717647 )
 position = Vector2( 3600, 0 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RightSafeZone"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
+
+[node name="Detector" type="Area2D" parent="RightSafeZone"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RightSafeZone/Detector"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
 
 [node name="Teleport" parent="." groups=["portal"] instance=ExtResource( 6 )]
 process_priority = -1
@@ -37,7 +59,10 @@ modulate = Color( 0.52549, 0.52549, 0.52549, 0.635294 )
 self_modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 3960, 1 )
 scale = Vector2( 0.25, 1 )
+script = ExtResource( 8 )
+id = 0
 right_left = false
+area = 2
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Teleport"]
 position = Vector2( 240, 359 )
@@ -97,6 +122,7 @@ red = true
 
 [node name="Area 2" type="Node2D" parent="."]
 position = Vector2( 0, -6 )
+script = ExtResource( 4 )
 
 [node name="Sprite2" type="Sprite" parent="Area 2"]
 position = Vector2( 7259, 473 )
@@ -107,9 +133,29 @@ offset = Vector2( -253, -106 )
 modulate = Color( 1, 1, 1, 0.709804 )
 position = Vector2( 4958, 7 )
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 2/LeftSafeZone2"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
+
+[node name="Detector" type="Area2D" parent="Area 2/LeftSafeZone2"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 2/LeftSafeZone2/Detector"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
+
 [node name="RightSafeZone2" parent="Area 2" instance=ExtResource( 6 )]
 modulate = Color( 1, 1, 1, 0.678431 )
 position = Vector2( 8558, 7 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 2/RightSafeZone2"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
+
+[node name="Detector" type="Area2D" parent="Area 2/RightSafeZone2"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 2/RightSafeZone2/Detector"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
 
 [node name="Path2D2" type="Path2D" parent="Area 2"]
 position = Vector2( 4958, 7 )
@@ -132,6 +178,10 @@ modulate = Color( 0.52549, 0.52549, 0.52549, 0.45098 )
 self_modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 4958, 6 )
 scale = Vector2( 0.25, 1 )
+script = ExtResource( 8 )
+id = 0
+right_left = true
+area = 2
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 2/Teleport"]
 position = Vector2( 240, 359 )
@@ -167,5 +217,7 @@ scale = Vector2( 2, 92 )
 collision_layer = 2147483649
 collision_mask = 0
 
+[connection signal="body_entered" from="LeftSafeZone/Detector" to="LeftSafeZone" method="_on_Detector_body_entered"]
+[connection signal="body_exited" from="LeftSafeZone/Detector" to="LeftSafeZone" method="_on_Detector_body_exited"]
 [connection signal="body_entered" from="Teleport/Detector" to="Teleport" method="_on_Detector_body_entered"]
 [connection signal="body_entered" from="Area 2/Teleport/Detector" to="Area 2/Teleport" method="_on_Detector_body_entered"]

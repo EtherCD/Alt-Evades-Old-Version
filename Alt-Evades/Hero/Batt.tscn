@@ -36,16 +36,23 @@ texture = ExtResource( 5 )
 current = true
 zoom = Vector2( 2, 2 )
 
-[node name="ColorRect" type="ColorRect" parent="Player/Camera2D2"]
+[node name="CenteredRect" type="ColorRect" parent="Player/Camera2D2"]
+margin_right = 1315.0
+margin_bottom = 864.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="ColorRect" type="ColorRect" parent="Player/Camera2D2/CenteredRect"]
 show_behind_parent = true
 light_mask = 8
-margin_left = 820.0
-margin_top = 420.0
-margin_right = 1320.0
-margin_bottom = 870.0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -500.0
+margin_top = -450.0
 color = Color( 0.54902, 0.54902, 0.54902, 1 )
 
-[node name="Hero NLabel" type="Label" parent="Player/Camera2D2/ColorRect"]
+[node name="Hero NLabel" type="Label" parent="Player/Camera2D2/CenteredRect/ColorRect"]
 modulate = Color( 2, 2, 2, 1 )
 margin_left = 7.0
 margin_top = 4.0
@@ -60,7 +67,7 @@ align = 1
 valign = 1
 uppercase = true
 
-[node name="Hero Info" type="Label" parent="Player/Camera2D2/ColorRect"]
+[node name="Hero Info" type="Label" parent="Player/Camera2D2/CenteredRect/ColorRect"]
 modulate = Color( 2, 2, 2, 1 )
 margin_left = 16.0
 margin_top = 43.0
@@ -74,47 +81,47 @@ Alive: "
 valign = 1
 uppercase = true
 
-[node name="Line2D" type="Line2D" parent="Player/Camera2D2/ColorRect"]
+[node name="Line2D" type="Line2D" parent="Player/Camera2D2/CenteredRect/ColorRect"]
 points = PoolVector2Array( -0.100037, -0.250031, -6.10352e-05, 450 )
 default_color = Color( 0.505882, 0.505882, 0.505882, 1 )
 
-[node name="Line2D2" type="Line2D" parent="Player/Camera2D2/ColorRect"]
+[node name="Line2D2" type="Line2D" parent="Player/Camera2D2/CenteredRect/ColorRect"]
 position = Vector2( 500, 0 )
 points = PoolVector2Array( -0.00012207, -6.25003, -0.00012207, 450 )
 default_color = Color( 0.505882, 0.505882, 0.505882, 1 )
 
-[node name="Line2D3" type="Line2D" parent="Player/Camera2D2/ColorRect"]
+[node name="Line2D3" type="Line2D" parent="Player/Camera2D2/CenteredRect/ColorRect"]
 points = PoolVector2Array( -5.10004, -0.250031, 503.75, -1.25003 )
 default_color = Color( 0.501961, 0.501961, 0.501961, 1 )
 
-[node name="Line2D4" type="Line2D" parent="Player/Camera2D2/ColorRect"]
+[node name="Line2D4" type="Line2D" parent="Player/Camera2D2/CenteredRect/ColorRect"]
 position = Vector2( 0, 450 )
 points = PoolVector2Array( -5.00006, -6.10352e-05, 505, -6.10352e-05 )
 default_color = Color( 0.501961, 0.501961, 0.501961, 1 )
 
-[node name="ColorRect" type="ColorRect" parent="Player/Camera2D2/ColorRect"]
+[node name="ColorRect" type="ColorRect" parent="Player/Camera2D2/CenteredRect/ColorRect"]
 margin_left = 15.0
 margin_top = 211.0
 margin_right = 484.0
 margin_bottom = 431.0
 color = Color( 1, 1, 1, 0.203922 )
 
-[node name="ability2" type="Sprite" parent="Player/Camera2D2/ColorRect/ColorRect"]
+[node name="ability2" type="Sprite" parent="Player/Camera2D2/CenteredRect/ColorRect/ColorRect"]
 position = Vector2( 355, 119 )
 texture = ExtResource( 9 )
 
-[node name="ability1" type="Sprite" parent="Player/Camera2D2/ColorRect/ColorRect"]
+[node name="ability1" type="Sprite" parent="Player/Camera2D2/CenteredRect/ColorRect/ColorRect"]
 position = Vector2( 108, 119 )
 texture = ExtResource( 8 )
 
-[node name="Ability1" type="Label" parent="Player/Camera2D2/ColorRect/ColorRect"]
+[node name="Ability1" type="Label" parent="Player/Camera2D2/CenteredRect/ColorRect/ColorRect"]
 margin_right = 211.0
 margin_bottom = 39.0
 custom_fonts/font = ExtResource( 2 )
 text = "Ability 1"
 align = 1
 
-[node name="Ability2" type="Label" parent="Player/Camera2D2/ColorRect/ColorRect"]
+[node name="Ability2" type="Label" parent="Player/Camera2D2/CenteredRect/ColorRect/ColorRect"]
 margin_left = 254.0
 margin_right = 451.0
 margin_bottom = 39.0
@@ -124,16 +131,20 @@ align = 1
 
 [node name="Level Label" type="Label" parent="Player/Camera2D2"]
 modulate = Color( 2, 2, 2, 1 )
-margin_left = -740.0
-margin_top = -899.0
-margin_right = 712.0
-margin_bottom = -792.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -385.0
+margin_top = -41.0
+margin_right = 385.0
+margin_bottom = 41.0
 size_flags_horizontal = 3
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 1 )
 text = "Evades Extracted: Area 1"
-align = 1
+align = 2
 
 [node name="Dome" type="Sprite" parent="Player"]
 visible = false

@@ -1,26 +1,39 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/Titile Level.tres" type="DynamicFont" id=1]
 [ext_resource path="res://HeroCart.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/ChangeHero.gd" type="Script" id=3]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="Label" type="Label" parent="."]
+anchor_right = 1.0
 margin_right = 1079.0
-margin_bottom = 131.0
+margin_bottom = 66.0
 custom_fonts/font = ExtResource( 1 )
 text = "Choose your character:"
 align = 1
 valign = 1
 
-[node name="ColorRect" type="ColorRect" parent="."]
-margin_left = 122.0
-margin_top = 111.0
-margin_right = 945.0
-margin_bottom = 681.0
+[node name="CenteredRect" type="ColorRect" parent="."]
+margin_top = 110.0
+margin_right = 1078.0
+margin_bottom = 684.0
+color = Color( 0.615686, 0.603922, 0.603922, 0 )
+
+[node name="ColorRect" type="ColorRect" parent="CenteredRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -411.5
+margin_top = -285.0
+margin_right = 411.5
+margin_bottom = 285.0
 color = Color( 0.101961, 0.101961, 0.101961, 1 )
 
-[node name="HeroCart" parent="ColorRect" instance=ExtResource( 2 )]
+[node name="HeroCart" parent="CenteredRect/ColorRect" instance=ExtResource( 2 )]
 modulate = Color( 0.694118, 0.694118, 0.694118, 1 )
 margin_left = 20.0
 margin_top = 20.0

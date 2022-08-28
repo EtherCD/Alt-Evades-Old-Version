@@ -9,11 +9,12 @@
 script = ExtResource( 3 )
 
 [node name="Label" type="Label" parent="."]
+anchor_right = 1.0
 margin_right = 1081.0
-margin_bottom = 184.0
+margin_bottom = 135.0
 custom_fonts/font = ExtResource( 2 )
 text = "Alt-Evades (Alpha)
-New Levels TEST!"
+Fully WORKS AURAS!!!"
 align = 1
 valign = 1
 
@@ -27,33 +28,47 @@ text = "Version: v0.5.5 (Alpha)"
 align = 1
 valign = 1
 
-[node name="Single Button" type="Button" parent="."]
-margin_left = 310.0
-margin_top = 327.0
-margin_right = 767.0
-margin_bottom = 435.0
-rect_pivot_offset = Vector2( -877, -161 )
-custom_fonts/font = ExtResource( 1 )
-text = "Single Player"
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 2.0
+margin_top = 191.0
+margin_right = 1077.0
+margin_bottom = 592.0
+color = Color( 0.521569, 0.521569, 0.521569, 0 )
 
-[node name="nameLine" type="LineEdit" parent="Single Button"]
-margin_left = -2.0
-margin_top = -103.0
-margin_right = 459.0
-margin_bottom = -24.0
-custom_fonts/font = ExtResource( 1 )
-text = "Player"
-align = 1
-
-[node name="Multi Button" type="Button" parent="."]
-margin_left = 309.0
-margin_top = 460.0
-margin_right = 766.0
-margin_bottom = 568.0
+[node name="Multi Button" type="Button" parent="ColorRect"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -228.5
+margin_top = -108.0
+margin_right = 228.5
 rect_pivot_offset = Vector2( 235, 51 )
 custom_fonts/font = ExtResource( 1 )
 text = "Multi Player"
 script = ExtResource( 4 )
 
-[connection signal="pressed" from="Single Button" to="." method="_on_Single_Button_pressed"]
-[connection signal="pressed" from="Multi Button" to="." method="_on_Multi_Button_pressed"]
+[node name="Single Button" type="Button" parent="ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -228.5
+margin_top = -54.0
+margin_right = 228.5
+margin_bottom = 54.0
+rect_pivot_offset = Vector2( -877, -161 )
+custom_fonts/font = ExtResource( 1 )
+text = "Single Player"
+
+[node name="nameLine" type="LineEdit" parent="ColorRect/Single Button"]
+margin_left = -3.0
+margin_top = -122.5
+margin_right = 458.0
+margin_bottom = -43.5
+custom_fonts/font = ExtResource( 1 )
+text = "Player"
+align = 1
+
+[connection signal="pressed" from="ColorRect/Multi Button" to="." method="_on_Multi_Button_pressed"]
+[connection signal="pressed" from="ColorRect/Single Button" to="." method="_on_Single_Button_pressed"]

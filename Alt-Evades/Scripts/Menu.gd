@@ -8,6 +8,14 @@ func _ready():
 	get_tree().connect("network_peer_connected", self, "_connected")
 	get_node("Label2").text = "Version: "+Singletone.version
 
+
+func _process(delta):
+	#Mashtab fix
+	$Label.rect_size.x = OS.get_window_size().x
+	$Label2.rect_size.x = OS.get_window_size().x
+	$Label2.rect_size.y = -OS.get_window_size().y
+	$ColorRect.rect_size.x = OS.get_window_size().x
+
 remote func _connected(c_id):
 	Singletone.id = c_id
 	var game = preload("res://Main.tscn").instance()
@@ -26,7 +34,7 @@ func _on_CButton_pressed():
 
 
 func _on_Single_Button_pressed():
-	Singletone.gameName = get_node("Single Button/nameLine").text
+	Singletone.gameName = get_node("ColorRect/Single Button/nameLine").text
 	var game = preload("res://ChangeHero.tscn")
 	get_tree().change_scene_to(game)
 	hide()

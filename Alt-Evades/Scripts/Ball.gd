@@ -19,7 +19,8 @@ export(String) var Ability2Src = "";
 export(Color) var cColor = Color(0.2,0.2,0.2,1);
 export(Color) var hCColor = Color(0.5,0.5,0.5,1);
 export(String) var A1 = "";
-export(String) var A2 = ""
+export(String) var A2 = "";
+export(String) var cLevel = "Evades Extracted"
 
 var mPressed = false
 #var mMovement = true
@@ -30,10 +31,14 @@ var canUpgradeRegen = true
 var coef_rEnergy = 0.025
 var cSpeed = 0
 var shiftC = 1
-var uShiftP = false
 var eCoefNot = 1
 var inverseMethod=false
+var cArea = 1;
 var velocity = Vector2()
+var saveZone = false
+
+var AuraRed = false
+var AuraBlue = false
 
 func f_translate(bol):
 	if bol: return "activated"
@@ -54,7 +59,7 @@ func _all_ready():
 		0.85)
 	else:
 		$ColorSprite.modulate = cColor
-	get_node("Camera2D2/ColorRect/Hero NLabel").text = heroName;
+	get_node("Camera2D2/CenteredRect/ColorRect/Hero NLabel").text = heroName;
 		
 func _process(_delta):
 	if cEnergy < mEnergy:
@@ -65,12 +70,14 @@ func _process(_delta):
 		cEnergy = 0;
 	if cEnergy > 0:
 		cEnergy /= eCoefNot
-	if uShiftP:
+	if AuraRed:
 		speed = cSpeed / 2
 	elif speed <= cSpeed:
 		speed = cSpeed
 	if cSpeed < speed:
 		cSpeed = speed
+	if AuraBlue and cEnergy>0:
+		cEnergy -= 0.25 * eCoefNot
 	if ability1:
 		ability1_f()
 	if ability2:
@@ -81,7 +88,8 @@ func _process(_delta):
 
 func draw_info():
 	get_node("Camera2D2/ColorRect/Hero Info").text = "Speed: "+str(cSpeed/50)+"\nEnergy: "+str(int(cEnergy))+"/"+str(mEnergy)+"\nRegen: "+str(rEnergy)+"\nAlive:"+a_translate(alive)
-		
+	get_node("Camera2D2/Level Label").text = cLevel+": Area "+str(cArea)
+
 func _physics_process(_delta):
 	if alive:
 		velocity = Vector2()
@@ -174,16 +182,6 @@ var auraB = false
 func hit(body):
 	if body.name == "Enemy":
 		kill()
-	if body.name == "AuraRed" and not auraR:
-		uShiftP = true
-		auraR = true
-	elif body.name == "AuraRed" and auraR:
-		uShiftP = false
-		auraR = false
-	if body.is_in_group("AuraBlue"):
-		eCoefNot = 1.0000925
-	elif eCoefNot != 1:
-		eCoefNot = 1
 	#if body.name == "AuraBlue" and not auraB:
 	#	eCoefNot = 1.0000925
 	#	auraB = true

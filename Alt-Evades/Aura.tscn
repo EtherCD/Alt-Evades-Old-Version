@@ -1,10 +1,23 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/char.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Aura.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 80.6777
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Area2D
+
+export(int) var cTp
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 75.6277
@@ -26,8 +39,12 @@ position = Vector2( -1.33337, -2.66666 )
 shape = SubResource( 1 )
 
 [node name="AuraArea" type="Area2D" parent="."]
+script = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AuraArea"]
 position = Vector2( 0, -4 )
 shape = SubResource( 2 )
 one_way_collision_margin = 128.0
+
+[connection signal="body_entered" from="AuraArea" to="." method="_on_AuraArea_body_entered"]
+[connection signal="body_exited" from="AuraArea" to="." method="_on_AuraArea_body_exited"]

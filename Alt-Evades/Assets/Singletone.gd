@@ -1,7 +1,7 @@
 extends Node
 
 export var id = -1
-export var version = "0.6.3 (Pre-Alpha)"
+export var version = "0.6.5 (Pre-Alpha)"
 export var gameName = ""
 
 var all_herous = [

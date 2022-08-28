@@ -25,15 +25,7 @@ func _ready():
 	#	player2.position = Vector2(rand_range(100, 250), rand_range(100, 250))
 	#	add_child(player2)
 	#elif Singletone.id == 0:
-	if chLink == "Standart":
-		var player_node = preload("res://hero/Standart.tscn").instance()
-	#else:
-	#var player_node = preload("res://hero/"+chLink+".tscn").instance()
-		player_node.name = "Player"
-		player_node.set_network_master(get_tree().get_network_unique_id())
-		player_node.set_position(Vector2(rand_range(100, 300), rand_range(100, 300)))
-		add_child(player_node)
-	elif chLink == "Batt":
+	if chLink == "Batt":
 		var player_node = preload("res://hero/Batt.tscn").instance()
 		player_node.name = "Player"
 		player_node.set_network_master(get_tree().get_network_unique_id())
