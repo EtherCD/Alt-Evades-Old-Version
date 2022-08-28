@@ -43,8 +43,8 @@
 - [ ] `Dark Blue`
 - [ ] `Magnetic`
 ### Auras:
-- [x] `Blue` (Not finished)
-- [x] `Red` (Not finished)
+- [x] `Blue`
+- [x] `Red`
 #### Full Auras(When in the aura, the effect of it remains until you pass through it again):
 - [ ] `Full Red` 
 - [ ] `Full Blue` 
