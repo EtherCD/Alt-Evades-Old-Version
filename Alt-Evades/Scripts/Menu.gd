@@ -27,8 +27,8 @@ func _on_CButton_pressed():
 
 func _on_Single_Button_pressed():
 	Singletone.gameName = get_node("Single Button/nameLine").text
-	var game = preload("res://ChangeHero.tscn").instance()
-	get_tree().get_root().add_child(game)
+	var game = preload("res://ChangeHero.tscn")
+	get_tree().change_scene_to(game)
 	hide()
 
 

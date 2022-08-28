@@ -28,6 +28,10 @@ Singletone="*res://Assets/Singletone.gd"
 window/size/width=1080
 window/size/height=720
 
+[global]
+
+Export=false
+
 [input]
 
 ui_left={

@@ -193,19 +193,6 @@ func hit(body):
 	if body.name == "BallArea":
 		revive()
 
-func _on_hitbox_area_area_entered(area):
-	if area.is_in_group("portal"):
-		if !area.lock_portal:
-			do_teleport(area)
-
-func do_teleport(body):
-	for portal in get_tree().get_nodes_in_group("portal"):
-		if portal != body:
-			if portal.id == body.id:
-				if !portal.lock_potal:
-					body.do_lock()
-					global_position=portal.global_position
-
 func _on_DeathTimer_timeout():
 	if timer_value > 0:
 		timer_value -= 1

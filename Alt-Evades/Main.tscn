@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Generator.gd" type="Script" id=1]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/gridBackground.png" type="Texture" id=3]
-[ext_resource path="res://Enemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=5]
 [ext_resource path="res://SafeZone.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Bot.tscn" type="PackedScene" id=7]
@@ -34,18 +33,28 @@ position = Vector2( 3600, 0 )
 
 [node name="Teleport" parent="." groups=["portal"] instance=ExtResource( 6 )]
 process_priority = -1
-modulate = Color( 0.52549, 0.52549, 0.52549, 0.45098 )
+modulate = Color( 0.52549, 0.52549, 0.52549, 0.635294 )
 self_modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 3960, 1 )
 scale = Vector2( 0.25, 1 )
+right_left = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Teleport"]
 position = Vector2( 240, 359 )
+rotation = 6.28319
+shape = SubResource( 3 )
+
+[node name="Detector" type="Area2D" parent="Teleport"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Teleport/Detector"]
+position = Vector2( 240, 359 )
+rotation = 6.28319
 shape = SubResource( 3 )
 
 [node name="PlayerContainer" type="Node" parent="."]
 
 [node name="Bot" parent="PlayerContainer" instance=ExtResource( 7 )]
+position = Vector2( 100, 100 )
 scale = Vector2( 0.8, 0.8 )
 
 [node name="Path2D" type="Path2D" parent="."]
@@ -86,9 +95,8 @@ dark = true
 blue = true
 red = true
 
-[node name="EnemyContainer" type="Node" parent="."]
-
-[node name="Area 2" type="Node" parent="."]
+[node name="Area 2" type="Node2D" parent="."]
+position = Vector2( 0, -6 )
 
 [node name="Sprite2" type="Sprite" parent="Area 2"]
 position = Vector2( 7259, 473 )
@@ -107,46 +115,33 @@ position = Vector2( 8558, 7 )
 position = Vector2( 4958, 7 )
 curve = SubResource( 1 )
 
+[node name="Generator" type="ColorRect" parent="Area 2"]
+margin_left = 5439.0
+margin_top = 8.0
+margin_right = 8558.0
+margin_bottom = 726.0
+color = Color( 1, 1, 1, 0 )
+script = ExtResource( 1 )
+dark = true
+blue = true
+red = true
+
 [node name="Teleport" parent="Area 2" groups=["portal"] instance=ExtResource( 6 )]
 process_priority = -1
 modulate = Color( 0.52549, 0.52549, 0.52549, 0.45098 )
 self_modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 4958, 7 )
+position = Vector2( 4958, 6 )
 scale = Vector2( 0.25, 1 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 2/Teleport"]
 position = Vector2( 240, 359 )
 shape = SubResource( 3 )
 
-[node name="EnemyContainer2" type="Node" parent="Area 2"]
+[node name="Detector" type="Area2D" parent="Area 2/Teleport"]
 
-[node name="Enemy1" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
-modulate = Color( 0.498039, 0.498039, 0.498039, 1 )
-position = Vector2( 6194, 131 )
-
-[node name="Enemy23" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
-position = Vector2( 6044, 486 )
-
-[node name="Enemy2" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
-position = Vector2( 5809, 176 )
-
-[node name="Enemy3" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
-position = Vector2( 6565, 267 )
-
-[node name="Enemy5" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
-position = Vector2( 7021, 114 )
-
-[node name="Enemy20" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
-position = Vector2( 7874, 131 )
-
-[node name="Enemy4" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
-position = Vector2( 7060, 343 )
-
-[node name="Enemy6" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
-position = Vector2( 6387, 400 )
-
-[node name="Enemy7" parent="Area 2/EnemyContainer2" instance=ExtResource( 4 )]
-position = Vector2( 7615, 558 )
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 2/Teleport/Detector"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
 
 [node name="TopWall2" parent="Area 2" instance=ExtResource( 2 )]
 position = Vector2( 4958, -9 )
@@ -171,3 +166,6 @@ position = Vector2( 9038, -1 )
 scale = Vector2( 2, 92 )
 collision_layer = 2147483649
 collision_mask = 0
+
+[connection signal="body_entered" from="Teleport/Detector" to="Teleport" method="_on_Detector_body_entered"]
+[connection signal="body_entered" from="Area 2/Teleport/Detector" to="Area 2/Teleport" method="_on_Detector_body_entered"]

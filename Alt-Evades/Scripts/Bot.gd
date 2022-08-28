@@ -17,7 +17,7 @@ func _physics_process(_delta):
 	if alive:
 		for r in range(-30, 31, 5):
 			result = space_state.intersect_ray(self.position, self.position + Vector2(8000, 0).rotated(deg2rad(r)), [self], 0b00000000000000001001)
-			vector = result.position - self.position
+			#vector = result.position - self.position
 			if max_vector.length() < vector.length():
 				max_vector = vector
 		velocity = max_vector.normalized() * speed
