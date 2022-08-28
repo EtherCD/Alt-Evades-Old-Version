@@ -32,7 +32,7 @@
 - [ ] `Mechanics Upgrade`: 1 / 5
 ### Level mechanics:
 - [x] `Random Generator`
-- [ ] `Transitions between levels of one map`
+- [x] `Transitions between levels of one map`
 - [ ] `Transitions between levels`
 ### Enemies:
 - [x] `Dark`
