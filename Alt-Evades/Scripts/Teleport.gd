@@ -10,7 +10,7 @@ func do_lock():
 
 func _on_Detector_body_entered(body):
 	for portal in get_tree().get_nodes_in_group("portal"):
-		if portal != body and body.name == "Player" and portal != self:
+		if portal != body and body.name == "Player" and portal != self and self.id == portal.id:
 			var pos = portal.global_position;
 			if portal.right_left:
 				body.global_position=Vector2(pos.x+250, pos.y+rand_range(250, 500))

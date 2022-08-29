@@ -12,6 +12,8 @@ func set(cType, size):
 		self.modulate = Color(1,0,0,0.3)
 	if cType == 2:
 		self.modulate = Color(0,0,1,0.3)
+	if cType == 3:
+		self.modulate = Color(1,0.49,0.57,0.3)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -24,6 +26,8 @@ func _on_AuraArea_body_entered(body):
 			body.AuraRed=true
 		elif aType == 2:
 			body.AuraBlue=true
+		elif aType == 3:
+			body.AuraPink=true
 
 
 func _on_AuraArea_body_exited(body):
@@ -32,3 +36,5 @@ func _on_AuraArea_body_exited(body):
 			body.AuraRed=false
 		elif aType == 2:
 			body.AuraBlue=false
+		elif aType == 3:
+			body.AuraPink=false

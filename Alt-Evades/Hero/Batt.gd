@@ -2,8 +2,9 @@ extends "res://Scripts/Ball.gd"
 
 var eAbility1 = 10;
 var eAbility1_ = 50;
-var switcher;
+var switcher = false;
 var Regen = 0;
+var canAbility1 = true;
 
 func _ready():
 	heroName = "Batt"
@@ -29,7 +30,7 @@ func draw_info():
 		rEnergy = Regen;
 	get_node("Camera2D2/CenteredRect/ColorRect/Hero Info").text = "Speed: "+str(cSpeed/50)+"\nEnergy: "+str(int(cEnergy))+"/"+str(mEnergy)+"\nRegen: "+str(rEnergy)+"\nAlive:"+a_translate(alive)
 	#get_node("Camera2D2/ColorRect/Hero Ability").text = 'Ability "'+nameAbility1+'":\n'+f_translate(switcher)+'\nAbility "'+nameAbility2+'":\n passive'
-	if not switcher:
+	if not switcher and not AuraPink:
 		$Camera2D2/CenteredRect/ColorRect/ColorRect/ability1.modulate = Color(1,1,1,1)
 	else: $Camera2D2/CenteredRect/ColorRect/ColorRect/ability1.modulate = Color(1,1,1,0.45)
 	get_node("EnergyBar").value = (cEnergy / mEnergy) * 100
@@ -42,22 +43,37 @@ func draw_info():
 	#$Camera2D2.zoom.x = 2/(OS.get_window_size().x/540)
 	#$Camera2D2.zoom.y = 2/(OS.get_window_size().y/360)
 
-#Ability
-func ability1_f():
-	if rEnergy > 2:
-		if switcher and cEnergy > 1:
-			cEnergy -= eAbility1*coef_rEnergy;
-		elif switcher and cEnergy < 1:
-			switcher = false;
-		switcher = not switcher
-		canUpgradeRegen=not switcher
-		$Dome.visible=switcher
-		if switcher:
+func _add_process():
+	if switcher and cEnergy > 0:
+		cEnergy -= eAbility1*coef_rEnergy;
+	elif cEnergy < 1:
+		switcher = false
+		if switcher and rEnergy >= Regen:
 			Regen = rEnergy
 			rEnergy = Regen / 2;
-		else:
+		elif not switcher and rEnergy < Regen:
 			rEnergy = Regen;
-	
+	canUpgradeRegen=not switcher
+	$Dome.visible=switcher
+
+#Ability
+func ability1_f():
+	if rEnergy > 2 and canAbility1 and cEnergy > 1:
+		switcher = not switcher
+		if switcher and rEnergy >= Regen:
+			Regen = rEnergy
+			rEnergy = Regen / 2;
+		elif not switcher and rEnergy < Regen:
+			rEnergy = Regen;
+		$Camera2D2/CenteredRect/ColorRect/ColorRect/TTAbility1.start()
+	elif rEnergy < 0:
+		switcher = false
+		if rEnergy < Regen:
+			rEnergy = Regen
+	if canAbility1:
+		$Camera2D2/CenteredRect/ColorRect/ColorRect/ability1.modulate = Color(1,1,1,0.45)
+	canAbility1=false
+
 func ability2_f():
 	pass
 
@@ -73,7 +89,12 @@ func kill():
 		$Sprite.modulate.a = 0.5
 		$DeathTimer.start()
 		$Dome.visible=false
-	if switcher and cEnergy > 10:
+	if switcher and cEnergy > 50:
 		cEnergy-=eAbility1_*0.5;
 	else:
 		switcher = false;
+
+
+func _on_ability1_timeout():
+	canAbility1=true;
+	$Camera2D2/CenteredRect/ColorRect/ColorRect/ability1.modulate = Color(1,1,1,1)

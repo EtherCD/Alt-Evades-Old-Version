@@ -23,7 +23,7 @@ export(String) var A2 = "";
 export(String) var cLevel = "Evades Extracted"
 
 var mPressed = false
-#var mMovement = true
+var mMovement = false
 var ability1 = false
 var ability2 = false
 var canUpgradeMaxEnergy = true
@@ -35,10 +35,13 @@ var eCoefNot = 1
 var inverseMethod=false
 var cArea = 1;
 var velocity = Vector2()
-var saveZone = false
+var saveZone = true
 
 var AuraRed = false
 var AuraBlue = false
+var AuraPink = false
+
+var target = Vector2()
 
 func f_translate(bol):
 	if bol: return "activated"
@@ -70,21 +73,28 @@ func _process(_delta):
 		cEnergy = 0;
 	if cEnergy > 0:
 		cEnergy /= eCoefNot
-	if AuraRed:
-		speed = cSpeed / 2
-	elif speed <= cSpeed:
-		speed = cSpeed
-	if cSpeed < speed:
-		cSpeed = speed
-	if AuraBlue and cEnergy>0:
-		cEnergy -= 0.25 * eCoefNot
-	if ability1:
+	if not saveZone:
+		if AuraRed:
+			speed = cSpeed / 2
+		elif speed <= cSpeed:
+			speed = cSpeed
+		if cSpeed < speed:
+			cSpeed = speed
+		if AuraBlue and cEnergy>0:
+			cEnergy -= 0.25 * eCoefNot
+	if mMovement:
+		target = get_global_mouse_position()
+	if ability1 and not AuraPink:
 		ability1_f()
-	if ability2:
+	if ability2 and not AuraPink:
 		ability2_f()
 	#if mMovement and mVelocity != velocity:
 	#	mVelocity = velocity;
 	draw_info()
+	_add_process()
+
+func _add_process():
+	pass
 
 func draw_info():
 	get_node("Camera2D2/ColorRect/Hero Info").text = "Speed: "+str(cSpeed/50)+"\nEnergy: "+str(int(cEnergy))+"/"+str(mEnergy)+"\nRegen: "+str(rEnergy)+"\nAlive:"+a_translate(alive)
@@ -93,24 +103,38 @@ func draw_info():
 func _physics_process(_delta):
 	if alive:
 		velocity = Vector2()
-		if Input.is_action_pressed("ui_right"): #and not mMovement:
+		if Input.is_action_pressed("ui_right") and not mMovement:
 			velocity.x += 1
-		if Input.is_action_pressed("ui_left"): #and not mMovement:
+		if Input.is_action_pressed("ui_left") and not mMovement:
 			velocity.x -= 1
-		if Input.is_action_pressed("ui_down"): #and not mMovement:
+		if Input.is_action_pressed("ui_down") and not mMovement:
 			velocity.y += 1
-		if Input.is_action_pressed("ui_up"): #and not mMovement:
+		if Input.is_action_pressed("ui_up") and not mMovement:
 			velocity.y -= 1
-		#if mMovement:
-		#	velocity = mVelocity;
-		if velocity.length() > 0:
-			velocity = velocity.normalized() * (speed / shiftC)
+		if mMovement:
+			velocity = global_position.direction_to(target)/2
+			#speed /= mouseSpeed
+			target -= global_position
+			velocity /= (sqrt(target.x*target.x+target.y*target.y)/5)
+			var direction_distance = target.length()*3
+			if direction_distance == 0:
+				direction_distance=1
+			#print(direction_distance)
+			if velocity.length() > 0:
+				velocity = velocity.normalized() * (min(speed, direction_distance) / shiftC)
+		else:
+			if velocity.length() > 0:
+				velocity = velocity.normalized() * (speed / shiftC)
 		# warning-ignore:return_value_discarded
 		move_and_slide(velocity)
 		#get_node("src://Camera2D2").position=velocity
-		rpc_unreliable('_set_pos', velocity)
-		rpc_unreliable('_set_speed', speed)
-		rpc_unreliable('_set_time', timer_value)
+		#rpc_unreliable('_set_pos', velocity)
+		#rpc_unreliable('_set_speed', speed)
+		#rpc_unreliable('_set_time', timer_value)
+
+func _input(event):
+	if event is InputEventMouseButton && event.pressed == true:
+		mMovement=not mMovement
 
 func _unhandled_input(event):
 	if event is InputEventKey:
@@ -135,7 +159,7 @@ func _unhandled_input(event):
 				ability2 = true;
 			elif event.pressed and event.scancode == KEY_X and ability2:
 				ability2 = false;
-		elif alive:
+		elif alive and not AuraPink:
 			if event.pressed and event.scancode == KEY_Z:
 				ability1_f()
 			if event.pressed and event.scancode == KEY_X:
