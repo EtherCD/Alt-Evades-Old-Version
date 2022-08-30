@@ -20,7 +20,7 @@
 - [ ] `Quantom` (Secret character is too good)
 ### Levels:
 - [x] `Evades Extracted`
-- [ ] `Galacial Gatastrophic`
+- [ ] `Galactical Gatastrophe`
 - [ ] `Definite Day`
 - [ ] `Insane Island`
 - [ ] `Lite Life`
