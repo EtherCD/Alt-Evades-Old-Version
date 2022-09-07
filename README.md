@@ -1,6 +1,5 @@
-# AltEvades
-* Fork of OpenEvades, more refined and already with most of the improvements
-* Link to OpenEvades: `https://github.com/ollie-d/OpenEvades`
+# AltEvades-Web
+* Сompiling Alt-Evades only as a site
 ## Gameplay:
 ### Controll:
 - [x] `Full works Shift`
