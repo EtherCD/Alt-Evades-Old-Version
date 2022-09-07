@@ -24,7 +24,6 @@ radius = 75.6277
 
 [node name="Aura" type="KinematicBody2D"]
 modulate = Color( 0.0352941, 0, 1, 0.572549 )
-position = Vector2( 962, 357 )
 scale = Vector2( 1.5, 1.5 )
 collision_layer = 8
 collision_mask = 3

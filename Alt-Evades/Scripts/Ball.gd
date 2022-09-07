@@ -75,7 +75,7 @@ func _process(_delta):
 		cEnergy /= eCoefNot
 	if not saveZone:
 		if AuraRed:
-			speed = cSpeed / 2
+			speed = cSpeed / 1.5
 		elif speed <= cSpeed:
 			speed = cSpeed
 		if cSpeed < speed:
@@ -96,9 +96,14 @@ func _process(_delta):
 func _add_process():
 	pass
 
+func _boss_area():
+	if cArea % 10:
+		return " Boss "
+	return " "
+
 func draw_info():
 	get_node("Camera2D2/ColorRect/Hero Info").text = "Speed: "+str(cSpeed/50)+"\nEnergy: "+str(int(cEnergy))+"/"+str(mEnergy)+"\nRegen: "+str(rEnergy)+"\nAlive:"+a_translate(alive)
-	get_node("Camera2D2/Level Label").text = cLevel+": Area "+str(cArea)
+	get_node("Camera2D2/Level Label").text = cLevel+":"+_boss_area()+"Area "+str(cArea)
 
 func _physics_process(_delta):
 	if alive:
@@ -118,6 +123,8 @@ func _physics_process(_delta):
 			velocity /= (sqrt(target.x*target.x+target.y*target.y)/5)
 			var direction_distance = target.length()*3
 			if direction_distance == 0:
+				direction_distance=1
+			elif direction_distance < 0:
 				direction_distance=1
 			#print(direction_distance)
 			if velocity.length() > 0:
@@ -139,6 +146,7 @@ func _input(event):
 func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed and event.scancode == KEY_ESCAPE:
+			Singletone.save_game()
 			get_tree().quit()
 		if event.pressed and event.scancode == KEY_1 and speed < 850:
 			speed += 25;

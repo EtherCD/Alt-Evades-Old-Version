@@ -5,9 +5,10 @@ export(int) var port = 5650
 export(int) var maxPlayer = 2;
 
 func _ready():
+	Singletone.load_game()
 	get_tree().connect("network_peer_connected", self, "_connected")
 	get_node("Label2").text = "Version: "+Singletone.version
-
+	$"ColorRect/Single Button/nameLine".text=Singletone.gameName
 
 func _process(delta):
 	#Mashtab fix

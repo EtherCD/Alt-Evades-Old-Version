@@ -13,9 +13,9 @@ func _on_Detector_body_entered(body):
 		if portal != body and body.name == "Player" and portal != self and self.id == portal.id:
 			var pos = portal.global_position;
 			if portal.right_left:
-				body.global_position=Vector2(pos.x+250, pos.y+rand_range(250, 500))
+				body.global_position=Vector2(pos.x+200, body.global_position.y)
 				body.cArea+=1
 			else:
-				body.global_position=Vector2(pos.x-250, pos.y+rand_range(250, 500))				
+				body.global_position=Vector2(pos.x-120, body.global_position.y)				
 				body.cArea-=1
 			portal.do_lock()

@@ -159,12 +159,13 @@ region_enabled = true
 region_rect = Rect2( 0.377182, 0.127052, 171.162, 165.031 )
 
 [node name="EnergyBar" type="ProgressBar" parent="Player"]
-modulate = Color( 0.972549, 0.972549, 0.972549, 1 )
 material = SubResource( 1 )
 margin_left = -39.0
 margin_top = -66.0
 margin_right = 37.0
 margin_bottom = -46.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 3 )
 
 [node name="Name" type="Label" parent="Player"]

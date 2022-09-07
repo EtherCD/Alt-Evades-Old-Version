@@ -1,8 +1,10 @@
 extends Node
 
 export var id = -1
-export var version = "0.6.8 (Pre-Alpha)"
-export var gameName = ""
+export var version = "0.7 (Alpha)"
+export var gameName = "Player"
+
+var extraVP = 0
 
 var all_herous = [
 	"Batt"
@@ -33,3 +35,21 @@ var hero_info = {
 
 func _ready():
 	pass
+
+func load_game():
+	var save_game = File.new()
+	if not save_game.file_exists("user://savegame.save"):
+		return
+	save_game.open("user://savegame.save", File.READ)
+	var data = parse_json(save_game.get_line())
+	current_herous=data[0]
+	extraVP=data[1]
+	gameName=data[2]
+	
+	save_game.close()
+
+func save_game():
+	var save_game = File.new()
+	save_game.open("user://savegame.save", File.WRITE)
+	save_game.store_line(to_json([current_herous, extraVP,gameName]))
+	save_game.close()
