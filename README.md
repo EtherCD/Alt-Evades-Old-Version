@@ -1,6 +1,7 @@
 # AltEvades
 * Fork of OpenEvades, more refined and already with most of the improvements
 * Link to OpenEvades: `https://github.com/ollie-d/OpenEvades`
+* Link to Web-Tests: `https://ethercd.github.io/AltEvades/`
 ## Gameplay:
 ### Controll:
 - [x] `Full works Shift`
@@ -38,7 +39,7 @@
 ### Enemies:
 - [x] `Dark`
 - [ ] `Grey`
-- [ ] `Honey`
+- [x] `Honey`
 - [x] `Red`
 - [x] `Blue`
 - [ ] `Dark Blue`
