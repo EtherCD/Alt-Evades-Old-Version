@@ -1,13 +1,16 @@
 extends Node
 
 export var id = -1
-export var version = "0.7 (Alpha)"
+export var version = "0.7.2 (Alpha)"
 export var gameName = "Player"
 
 var extraVP = 0
 
+
+
 var all_herous = [
-	"Batt"
+	"Batt",
+	"Fluid"
 ]
 var current_herous = [
 	"Batt"
@@ -19,6 +22,11 @@ var hero_info = {
 			"g": 0.806827,
 			"b": 0.203304
 		},
+		"HeroFone": [
+			"#edffff5a",
+			"#caca37",
+			"#525200"
+		],
 		"A1": "Dome: Protects from everyone at the expense of energy 5 per activation, 10 per ball hit",
 		"A2": "Mega Battery: Passive ability makes max storage up to 500",
 		"NameAbility1": "Dome",
@@ -26,6 +34,29 @@ var hero_info = {
 		"HeroLink": "Batt",
 		"LevelToComplite": "Evades Extracted",
 		"CurrentLevel": 0,
+		"Resources": {
+			"Ability1": "batt_dome.png",
+			"Ability2": "batt_battery.png"
+		}
+	},
+	"Fluid": {
+		"HeroColor": {
+			"r": 0.29,
+			"g": 0.29,
+			"b": 0.29
+		},
+		"HeroFone": [
+			"#5a5aff",
+			"#323295",
+			"#0a0a0a"
+		],
+		"A1": "Quarantine zone: It is created at the place of manifestation of the character with a radius in cells of 5 in it, all enemies are delayed by 40% and do not become mortal without any obstacles.",
+		"A2": "Jumper: shoots 6 balls that fly with a distance from the beginning of the map to the middle, they are 2 by 2 cells and can rebound from the sides of the end of the map and heal.",
+		"NameAbility1": "Dome",
+		"NameAbility2": "Mega Battery",
+		"HeroLink": "Fluid",
+		"LevelToComplite": "Evades Extracted",
+		"CurrentLevel": 40,
 		"Resources": {
 			"Ability1": "batt_dome.png",
 			"Ability2": "batt_battery.png"

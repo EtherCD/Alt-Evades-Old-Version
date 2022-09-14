@@ -2,7 +2,8 @@ extends StaticBody2D
 
 export(int) var id = 0
 export(bool) var right_left = true
-export(int) var area = 2;
+export(int) var area = 2
+export(bool) var is_vin=false;
 var can_teleport = false
 
 func do_lock():

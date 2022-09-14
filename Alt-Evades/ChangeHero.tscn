@@ -17,9 +17,10 @@ align = 1
 valign = 1
 
 [node name="CenteredRect" type="ColorRect" parent="."]
-margin_top = 110.0
-margin_right = 1078.0
-margin_bottom = 684.0
+margin_left = 1.0
+margin_top = 47.0
+margin_right = 1079.0
+margin_bottom = 723.0
 color = Color( 0.615686, 0.603922, 0.603922, 0 )
 
 [node name="ColorRect" type="ColorRect" parent="CenteredRect"]
@@ -34,10 +35,23 @@ margin_bottom = 285.0
 color = Color( 0.101961, 0.101961, 0.101961, 1 )
 
 [node name="HeroCart" parent="CenteredRect/ColorRect" instance=ExtResource( 2 )]
-modulate = Color( 0.694118, 0.694118, 0.694118, 1 )
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 370.0
-margin_bottom = 300.0
+modulate = Color( 1, 1, 1, 1 )
+margin_left = 23.0
+margin_top = 13.0
+margin_right = 382.0
+margin_bottom = 269.0
+rect_pivot_offset = Vector2( 196.5, 173 )
 rect_clip_content = true
+color = Color( 0.588235, 0.588235, 0.588235, 0 )
 HeroName = "Batt"
+
+[node name="HeroCart2" parent="CenteredRect/ColorRect" instance=ExtResource( 2 )]
+modulate = Color( 1, 1, 1, 1 )
+margin_left = 438.0
+margin_top = 13.0
+margin_right = 803.0
+margin_bottom = 269.0
+rect_pivot_offset = Vector2( 196.5, 173 )
+rect_clip_content = true
+color = Color( 0.588235, 0.588235, 0.588235, 0 )
+HeroName = "Fluid"

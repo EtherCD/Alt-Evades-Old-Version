@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/Titile Level.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/Info Font.tres" type="DynamicFont" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Assets/icons/Dome.png" type="Texture" id=7]
 [ext_resource path="res://Assets/icons/batt_dome.png" type="Texture" id=8]
 [ext_resource path="res://Assets/icons/batt_battery.png" type="Texture" id=9]
+[ext_resource path="res://Assets/ballBlue_10.png" type="Texture" id=10]
+[ext_resource path="res://Assets/ultraSmall.tres" type="DynamicFont" id=11]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -114,6 +116,21 @@ texture = ExtResource( 9 )
 position = Vector2( 108, 119 )
 texture = ExtResource( 8 )
 
+[node name="TimeLabelA1" type="Label" parent="Player/Camera2D2/CenteredRect/ColorRect/ColorRect/ability1"]
+visible = false
+modulate = Color( 0.87451, 0, 0, 1 )
+self_modulate = Color( 1, 0, 0, 1 )
+margin_left = -74.0
+margin_top = -73.0
+margin_right = -24.0
+margin_bottom = -24.0
+rect_scale = Vector2( 3, 3 )
+custom_fonts/font = ExtResource( 11 )
+text = "Restart"
+align = 1
+valign = 1
+percent_visible = -1.0
+
 [node name="Ability1" type="Label" parent="Player/Camera2D2/CenteredRect/ColorRect/ColorRect"]
 margin_right = 211.0
 margin_bottom = 39.0
@@ -131,6 +148,9 @@ align = 1
 
 [node name="TTAbility1" type="Timer" parent="Player/Camera2D2/CenteredRect/ColorRect/ColorRect"]
 wait_time = 1.5
+
+[node name="TimerAAbility1" type="Timer" parent="Player/Camera2D2/CenteredRect/ColorRect/ColorRect"]
+wait_time = 2.0
 
 [node name="Level Label" type="Label" parent="Player/Camera2D2"]
 modulate = Color( 2, 2, 2, 1 )
@@ -163,7 +183,7 @@ material = SubResource( 1 )
 margin_left = -39.0
 margin_top = -66.0
 margin_right = 37.0
-margin_bottom = -46.0
+margin_bottom = -47.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 3 )
@@ -177,4 +197,38 @@ custom_fonts/font = ExtResource( 2 )
 text = "Player"
 align = 1
 
+[node name="Aura" type="Sprite" parent="Player"]
+visible = false
+modulate = Color( 1, 1, 0.52549, 0.258824 )
+scale = Vector2( 5, 4.91526 )
+texture = ExtResource( 10 )
+
+[node name="ColorRect" type="ColorRect" parent="Player"]
+margin_left = -1236.0
+margin_top = -787.0
+margin_right = -801.0
+margin_bottom = -343.0
+color = Color( 0.529412, 0.529412, 0.529412, 1 )
+
+[node name="Button" type="Button" parent="Player/ColorRect"]
+margin_left = 5.0
+margin_top = 6.0
+margin_right = 430.0
+margin_bottom = 98.0
+rect_pivot_offset = Vector2( 124.75, 49.7501 )
+custom_fonts/font = ExtResource( 1 )
+text = "Hill"
+
+[node name="Button2" type="Button" parent="Player/ColorRect"]
+margin_left = 5.0
+margin_top = 105.0
+margin_right = 430.0
+margin_bottom = 197.0
+rect_pivot_offset = Vector2( 124.75, 49.7501 )
+custom_fonts/font = ExtResource( 1 )
+text = "Next Level"
+
 [connection signal="timeout" from="Player/Camera2D2/CenteredRect/ColorRect/ColorRect/TTAbility1" to="Player" method="_on_ability1_timeout"]
+[connection signal="timeout" from="Player/Camera2D2/CenteredRect/ColorRect/ColorRect/TimerAAbility1" to="Player" method="_on_TimerAAbility1_timeout"]
+[connection signal="pressed" from="Player/ColorRect/Button" to="Player" method="_on_Button_pressed"]
+[connection signal="pressed" from="Player/ColorRect/Button2" to="Player" method="_on_Button2_pressed"]

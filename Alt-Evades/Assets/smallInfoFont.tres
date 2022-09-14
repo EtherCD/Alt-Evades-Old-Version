@@ -1,0 +1,11 @@
+[gd_resource type="DynamicFont" load_steps=2 format=2]
+
+[sub_resource type="DynamicFontData" id=1]
+resource_local_to_scene = true
+font_path = "res://assets/Arial.ttf"
+
+[resource]
+outline_size = 2
+outline_color = Color( 0.564706, 0.564706, 0.564706, 1 )
+use_filter = true
+font_data = SubResource( 1 )

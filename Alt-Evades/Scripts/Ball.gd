@@ -97,7 +97,7 @@ func _add_process():
 	pass
 
 func _boss_area():
-	if cArea % 10:
+	if cArea % 10 != 0:
 		return " Boss "
 	return " "
 

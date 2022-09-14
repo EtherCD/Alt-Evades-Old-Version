@@ -65,6 +65,7 @@ script = ExtResource( 8 )
 id = 0
 right_left = false
 area = 2
+is_vin = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Teleport"]
 position = Vector2( 240, 359 )
@@ -126,13 +127,8 @@ size = 0.4
 [node name="Area 2" type="Node2D" parent="."]
 position = Vector2( 1000, -6 )
 script = ExtResource( 4 )
-cLevelDark = 34
-cLevelBlue = 15
-cLevelRed = 5
-cLevelPink = 21
-cLevelHoney = 11
-mLevelStandart = 23
 modLevel = 1
+levelName = "Evades Extracted"
 
 [node name="Sprite2" type="Sprite" parent="Area 2"]
 position = Vector2( 7259, 473 )
@@ -195,6 +191,7 @@ script = ExtResource( 8 )
 id = 0
 right_left = true
 area = 2
+is_vin = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 2/Teleport"]
 position = Vector2( 240, 359 )
@@ -216,6 +213,7 @@ script = ExtResource( 8 )
 id = 1
 right_left = false
 area = 2
+is_vin = false
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 2/Teleport2"]
 position = Vector2( 240, 359 )
@@ -251,6 +249,93 @@ scale = Vector2( 2, 93.5 )
 collision_layer = 2147483649
 collision_mask = 0
 
+[node name="Area 3" type="Node2D" parent="."]
+position = Vector2( 7000, -6 )
+
+[node name="Sprite2" type="Sprite" parent="Area 3"]
+modulate = Color( 1, 1, 0.470588, 1 )
+position = Vector2( 7259, 473 )
+texture = ExtResource( 3 )
+offset = Vector2( -253, -106 )
+
+[node name="Path2D2" type="Path2D" parent="Area 3"]
+position = Vector2( 4958, 7 )
+curve = SubResource( 1 )
+
+[node name="Teleport" parent="Area 3" groups=["portal"] instance=ExtResource( 6 )]
+process_priority = -1
+modulate = Color( 1, 1, 0, 0.419608 )
+self_modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 4958, 6 )
+scale = Vector2( 0.27, 1 )
+script = ExtResource( 8 )
+id = 2
+right_left = true
+area = 2
+is_vin = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 3/Teleport"]
+modulate = Color( 1, 1, 0.945098, 0.329412 )
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
+
+[node name="Detector" type="Area2D" parent="Area 3/Teleport"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 3/Teleport/Detector"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
+
+[node name="Teleport2" parent="Area 3" groups=["portal"] instance=ExtResource( 6 )]
+process_priority = -1
+modulate = Color( 1, 1, 0, 0.419608 )
+self_modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 8923, 4 )
+scale = Vector2( 0.28, 1 )
+script = ExtResource( 8 )
+id = 2
+right_left = false
+area = 2
+is_vin = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 3/Teleport2"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
+
+[node name="Detector" type="Area2D" parent="Area 3/Teleport2"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 3/Teleport2/Detector"]
+position = Vector2( 240, 359 )
+shape = SubResource( 3 )
+
+[node name="TopWall2" parent="Area 3" instance=ExtResource( 2 )]
+modulate = Color( 1, 0.431373, 0, 1 )
+position = Vector2( 4958, -9 )
+scale = Vector2( 512, 2 )
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="BottomWall2" parent="Area 3" instance=ExtResource( 2 )]
+modulate = Color( 1, 0.431373, 0, 1 )
+position = Vector2( 4957, 723 )
+scale = Vector2( 512, 2 )
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="LeftWall2" parent="Area 3" instance=ExtResource( 2 )]
+modulate = Color( 1, 0.431373, 0, 1 )
+position = Vector2( 4942, -9 )
+scale = Vector2( 2, 93.5 )
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="RightWall2" parent="Area 3" instance=ExtResource( 2 )]
+modulate = Color( 1, 0.431373, 0, 1 )
+self_modulate = Color( 1, 1, 0, 1 )
+position = Vector2( 9053, -9 )
+scale = Vector2( 2, 93.5 )
+collision_layer = 2147483649
+collision_mask = 0
+
 [connection signal="body_entered" from="LeftSafeZone/Detector" to="LeftSafeZone" method="_on_Detector_body_entered"]
 [connection signal="body_exited" from="LeftSafeZone/Detector" to="LeftSafeZone" method="_on_Detector_body_exited"]
 [connection signal="body_entered" from="RightSafeZone/Detector" to="RightSafeZone" method="_on_Detector_body_entered"]
@@ -267,3 +352,9 @@ collision_mask = 0
 [connection signal="body_entered" from="Area 2/Teleport2/Detector" to="Area 2" method="_on_Detector_body_entered"]
 [connection signal="body_entered" from="Area 2/Teleport2/Detector" to="Area 2/Teleport2" method="_on_Detector_body_entered"]
 [connection signal="body_exited" from="Area 2/Teleport2/Detector" to="RightSafeZone" method="_on_Detector_body_exited"]
+[connection signal="body_entered" from="Area 3/Teleport/Detector" to="Area 3" method="_on_Detector_right_entered"]
+[connection signal="body_entered" from="Area 3/Teleport/Detector" to="Area 3/Teleport" method="_on_Detector_body_entered"]
+[connection signal="body_exited" from="Area 3/Teleport/Detector" to="RightSafeZone" method="_on_Detector_body_exited"]
+[connection signal="body_entered" from="Area 3/Teleport2/Detector" to="Area 3" method="_on_Detector_body_entered"]
+[connection signal="body_entered" from="Area 3/Teleport2/Detector" to="Area 3/Teleport2" method="_on_Detector_body_entered"]
+[connection signal="body_exited" from="Area 3/Teleport2/Detector" to="RightSafeZone" method="_on_Detector_body_exited"]

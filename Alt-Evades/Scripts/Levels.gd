@@ -3,30 +3,8 @@ extends Node2D
 export(int) var col = 6;
 
 export(int)  var customID = 1;
-
-export(int) var cLevelStandart = 2;
-export(int) var cLevelDark = 2;
-export(int) var cLevelBlue = 2;
-export(int) var cLevelRed  = 2;
-export(int) var cLevelPink = 2;
-export(int) var cLevelHoney = 2;
-
-export(int) var mLevelStandart = 40;
-export(int) var mLevelDark = 40;
-export(int) var mLevelBlue = 40;
-export(int) var mLevelRed  = 40;
-export(int) var mLevelPink = 40;
-export(int) var mLevelHoney = 40;
-
 export(int) var modLevel = 2;
-
-export(float) var standartSize = 0.45;
-export(float) var mSize = 0.025;
-#export(float) var maxSize = 1.5;
-
-export(float) var standartSizeEnemyAuras = 0.25;
-export(float) var mSizeEnemyAuras = 0.005;
-#export(float) var maxSizeAuras = 1.5;
+export(String) var levelName = "";
 
 var area = 2;
 var notCustomID = 0;
@@ -34,13 +12,14 @@ var notCustomID = 0;
 func _ready():
 	pass
 
-func _process(delta):
-	pass
-
 func _on_Right_body_entered(body):
 	if body.name == "Player":
 		if notCustomID < $Teleport.id:
 			notCustomID = $Teleport.id
+		if area == 40:
+			customID=2
+		if area == 39:
+			customID=1
 		$Teleport.id = customID
 ###
 #func _generet_s(generator,cLevel,mLevel,cType,cSize,col):
@@ -57,61 +36,80 @@ func _on_Right_body_entered(body):
 func _gener():
 	$Generator._remove()
 	
+	$Generator.standartGenerator=false
+	if levelName in Maps.maps:
+		for level in Maps.maps[levelName]["Levels"]:
+			if int(level) <= area and int(Maps.maps[levelName]["Levels"][level]["EndLevel"]) > area:
+				var lev = Maps.maps[levelName]["Levels"][level]
+				if lev["AreaModifi"]:
+					$Generator.col=lev["Count"]+int(area/lev["AreaCoef"])
+				else:
+					$Generator.col=lev["Count"]
+				for enemy in lev["Enemy"]:
+					var cEnemy = enemy
+					if cEnemy["AreaModifi"] and cEnemy["MSize"]!=0:
+						$Generator._add(cEnemy["Type"],cEnemy["StandartSize"]+(area*cEnemy["MSize"]),cEnemy["Count"]+int(area/enemy["AreaCoef"]))
+					elif cEnemy["MSize"]!=0:
+						$Generator._add(cEnemy["Type"],cEnemy["StandartSize"]+(area*cEnemy["MSize"]),cEnemy["Count"])
+					else:
+						$Generator._add(cEnemy["Type"],cEnemy["StandartSize"],cEnemy["Count"])
+				break
 	
 	if area < 1:
 		$Generator.standartGenerator=true;
-		$Generator.col=6;
+		$Generator.col=col;
 		$Generator.size=0.45;
-	if area > 1 and area <= 9:
-		$Generator.col=col+area
-		#$Generator.auraSize=standartSizeAuras+(mSizeAuras * area)
-		$Generator.standartGenerator=false;
-		$Generator._add(4,standartSize+(area*mSize),0)
-		$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+area)
-	if area == 10:
-		$Generator._add(4,standartSize+(area*mSize),0)
-		$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+area)
-		$Generator._add(4,1.5,4)
-	if area >= 11 and area <= 19:
-		$Generator.col=col+int(area/2)
-		#$Generator._add(5,2.5,4)
-		standartSize=(area*mSize)/2
-		$Generator._add(4,standartSize+(area*mSize),0)
-		$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2))
-		$Generator._add(2,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2))
-	if area == 20:
-		$Generator._add(4,standartSize+(area*mSize),0)
-		$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2))
-		$Generator._add(2,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2))
-		$Generator._add(1,1.5,4)
-	if area >= 21 and area <= 29:
-		$Generator.col=col+int(area/2.5)
-		$Generator._add(4,standartSize+(area*mSize),0)
-		$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2.5))
-		$Generator._add(2,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2.5))
-		$Generator._add(3,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2.5))
-	if area == 30:
-		$Generator._add(4,standartSize+(area*mSize),0)
-		$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2.5))
-		$Generator._add(2,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2.5))
-		$Generator._add(3,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2.5))
-		$Generator._add(2,1.5,4)
-	if area >= 31 and area <= 39:
-		$Generator.col=col+int(area/3)
-		$Generator._add(4,standartSize+(area*mSize),0)
-		$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
-		$Generator._add(2,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
-		$Generator._add(3,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
-	if area == 40:
-		$Generator._add(4,standartSize+(area*mSize),0)
-		$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
-		$Generator._add(2,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
-		$Generator._add(3,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
-		$Generator._add(0,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
-		$Generator._add(3,1.5,4)
+	#if area > 1 and area <= 9:
+	#	$Generator.col=col+area
+	#	#$Generator.auraSize=standartSizeAuras+(mSizeAuras * area)
+	#	$Generator.standartGenerator=false;
+	#	$Generator._add(4,standartSize+(area*mSize),0)
+	#	$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+area)
+	#if area == 10:
+	#	$Generator._add(4,standartSize+(area*mSize),0)
+	#	$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+area)
+	#	$Generator._add(4,1.5,4)
+	#if area >= 11 and area <= 19:
+	#	$Generator.col=col+int(area/2)
+	#	#$Generator._add(5,2.5,4)
+	#	standartSize=(area*mSize)/2
+	#	$Generator._add(4,standartSize+(area*mSize),0)
+	#	$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2))
+	#	$Generator._add(2,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2))
+	#if area == 20:
+	#	$Generator._add(4,standartSize+(area*mSize),0)
+	#	$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2))
+	#	$Generator._add(2,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2))
+	#	$Generator._add(1,1.5,4)
+	#if area >= 21 and area <= 29:
+	#	$Generator.col=col+int(area/2.5)
+	#	$Generator._add(4,standartSize+(area*mSize),0)
+	#	$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2.5))
+	#	$Generator._add(2,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2.5))
+	#	$Generator._add(3,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2.5))
+	#if area == 30:
+	#	$Generator._add(4,standartSize+(area*mSize),0)
+	#	$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2.5))
+	#	$Generator._add(2,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2.5))
+	#	$Generator._add(3,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/2.5))
+	#	$Generator._add(2,1.5,4)
+	#if area >= 31 and area <= 39:
+	#	$Generator.col=col+int(area/3)
+	#	$Generator._add(4,standartSize+(area*mSize),0)
+	#	$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
+	#	$Generator._add(2,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
+	#	$Generator._add(3,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
+	#if area == 40:
+	#	$Generator._add(4,standartSize+(area*mSize),0)
+	#	$Generator._add(1,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
+	#	$Generator._add(2,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
+	#	$Generator._add(3,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
+	#	$Generator._add(0,standartSizeEnemyAuras+(mSizeEnemyAuras*mSize),4+int(area/3))
+	#	$Generator._add(3,1.5,4)
 	
-	
+	print("Do: ", $Generator.arr_s)
 	$Generator._create()
+	print("Posle: ", $Generator.arr_s)
 
 func _on_Detector_body_entered(body):
 	if body.name == "Player":

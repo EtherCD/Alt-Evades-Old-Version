@@ -1,7 +1,7 @@
 extends "res://Scripts/Ball.gd"
 
-var eAbility1 = 10;
-var eAbility1_ = 50;
+var eAbility1 = 50;
+var eAbility1_ = 55;
 var switcher = false;
 var Regen = 0;
 var canAbility1 = true;
@@ -19,14 +19,12 @@ func _ready():
 	var res2 = load("res://Assets/icons/"+Ability2Src)
 	$Camera2D2/CenteredRect/ColorRect/ColorRect/ability1.texture = res1;
 	$Camera2D2/CenteredRect/ColorRect/ColorRect/ability2.texture = res2;
-		
-	maxEnergy = 500
 	inverseMethod = true
 	get_node("Name").text = Singletone.gameName;
 	_all_ready()
 
 func draw_info():
-	if not alive:
+	if not alive and Regen > rEnergy:
 		rEnergy = Regen;
 	get_node("Camera2D2/CenteredRect/ColorRect/Hero Info").text = "Speed: "+str(cSpeed/50)+"\nEnergy: "+str(int(cEnergy))+"/"+str(mEnergy)+"\nRegen: "+str(rEnergy)+"\nAlive:"+a_translate(alive)
 	#get_node("Camera2D2/ColorRect/Hero Ability").text = 'Ability "'+nameAbility1+'":\n'+f_translate(switcher)+'\nAbility "'+nameAbility2+'":\n passive'
@@ -44,13 +42,11 @@ func draw_info():
 	#$Camera2D2.zoom.y = 2/(OS.get_window_size().y/360)
 
 func _add_process():
-	if switcher and cEnergy > 0:
-		cEnergy -= eAbility1*coef_rEnergy;
-	elif cEnergy < 1:
+	if cEnergy < 1 and not switcher:
 		switcher = false
 		if switcher and rEnergy >= Regen:
 			Regen = rEnergy
-			rEnergy = Regen / 2;
+			rEnergy = 0;
 		elif not switcher and rEnergy < Regen:
 			rEnergy = Regen;
 	canUpgradeRegen=not switcher
@@ -58,14 +54,17 @@ func _add_process():
 
 #Ability
 func ability1_f():
-	if rEnergy > 2 and canAbility1 and cEnergy > 1:
+	if rEnergy > 2 and canAbility1 and cEnergy > 50:
+		cEnergy-=eAbility1
 		switcher = not switcher
 		if switcher and rEnergy >= Regen:
 			Regen = rEnergy
-			rEnergy = Regen / 2;
+			rEnergy = 0;
 		elif not switcher and rEnergy < Regen:
 			rEnergy = Regen;
 		$Camera2D2/CenteredRect/ColorRect/ColorRect/TTAbility1.start()
+		$Camera2D2/CenteredRect/ColorRect/ColorRect/TimerAAbility1.start()
+		$"Camera2D2/CenteredRect/ColorRect/ColorRect/ability1/TimeLabelA1".visible=true
 	elif rEnergy < 0:
 		switcher = false
 		if rEnergy < Regen:
@@ -75,7 +74,17 @@ func ability1_f():
 	canAbility1=false
 
 func ability2_f():
-	pass
+	if mEnergy == 300:
+		mEnergy=500
+		maxEnergy=500
+		canUpgradeMaxEnergy=false
+	else:
+		mEnergy=300
+		maxEnergy=300
+		canUpgradeMaxEnergy=true
+	if cEnergy == 500:
+		$Aura.visible=true
+		
 
 #Func kill
 func kill():
@@ -98,3 +107,23 @@ func kill():
 func _on_ability1_timeout():
 	canAbility1=true;
 	$Camera2D2/CenteredRect/ColorRect/ColorRect/ability1.modulate = Color(1,1,1,1)
+
+
+func _on_TimerAAbility1_timeout():
+	switcher=false
+	$Dome.visible=false
+	if not switcher and rEnergy < Regen:
+		rEnergy = Regen;
+	$"Camera2D2/CenteredRect/ColorRect/ColorRect/ability1/TimeLabelA1".visible=false
+
+
+func _on_Button_pressed():
+	revive()
+
+
+func _on_Button2_pressed():
+	if cArea == 1:
+		self.global_position=Vector2(3700,self.global_position.y)
+	if cArea >= 2 and cArea <= 40:
+		self.global_position=Vector2(9700,self.global_position.y)
+	mMovement=false

@@ -26,7 +26,7 @@ func _create():
 	randomize()
 	if not standartGenerator:
 		for j in arr_s:
-			if j[2] >= 1 and j[2]<=j[3] and col>var2:
+			if j[2] >= 1 and j[3]<j[2] and col>var2:
 				for i in range(0, j[2]):
 					var enemy = preload("res://Enemy.tscn").instance()
 					var vec = Vector2(rand_range(141,3061), rand_range(1,671))
@@ -37,23 +37,22 @@ func _create():
 					else:
 						enemy.cType = 0;
 					j[3]+=1
+					var2+=1
 					add_child(enemy)
 					arr.append(enemy)
-			if j[2] <= 0 and col>var2:
-				for i in range(0, col):
-					var r = arr_s[randi() % arr_s.size()]
+			elif j[2] <= 0 and col>var2:
+				for i in range(0, col-var2):
 					var enemy = preload("res://Enemy.tscn").instance()
 					var vec = Vector2(rand_range(141,3061), rand_range(1,671))
 					enemy.position = vec;
-					enemy.size=r[1]
-					var maybe_color = []
-					if r[0] >= 0:
-						enemy.cType = r[0]
+					enemy.size=j[1]
+					if j[0] >= 0:
+						enemy.cType = j[0]
 					else:
 						enemy.cType = 0;
 					add_child(enemy)
 					arr.append(enemy)
-			var2+=1
+					var2+=1
 	else:
 		for i in range(0, col):
 			var enemy = preload("res://Enemy.tscn").instance()
