@@ -8,6 +8,7 @@ export(bool) var blue=false;
 export(bool) var red=false;
 export(bool) var pink=false;
 export(bool) var honey=false;
+export(bool) var cyan=false;
 export(float) var size=0.6;
 
 var arr_s = []
@@ -72,6 +73,8 @@ func _create():
 				maybe_color.append(3)
 			if honey:
 				maybe_color.append(5)
+			if cyan:
+				maybe_color.append(6)
 			if maybe_color != []:
 				enemy.cType = maybe_color[randi() % maybe_color.size()]
 			else:

@@ -26,7 +26,7 @@ texture = ExtResource( 3 )
 offset = Vector2( -253, -106 )
 
 [node name="LeftSafeZone" parent="." instance=ExtResource( 6 )]
-modulate = Color( 1, 1, 1, 0.623529 )
+modulate = Color( 1, 1, 1, 0.815686 )
 position = Vector2( 0, 0 )
 scale = Vector2( 0.95, 1 )
 
@@ -41,7 +41,7 @@ position = Vector2( 241.5, 359 )
 shape = SubResource( 3 )
 
 [node name="RightSafeZone" parent="." instance=ExtResource( 6 )]
-modulate = Color( 1, 1, 1, 0.717647 )
+modulate = Color( 1, 1, 1, 0.839216 )
 position = Vector2( 3575, -5 )
 scale = Vector2( 1.095, 1 )
 
@@ -65,7 +65,10 @@ script = ExtResource( 8 )
 id = 0
 right_left = false
 area = 2
-is_vin = false
+is_win = false
+end_level = 0
+win_evp = 0
+win_text = ""
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Teleport"]
 position = Vector2( 240, 359 )
@@ -122,12 +125,12 @@ script = ExtResource( 1 )
 standartGenerator = true
 col = 5
 standart = true
+cyan = true
 size = 0.4
 
 [node name="Area 2" type="Node2D" parent="."]
 position = Vector2( 1000, -6 )
 script = ExtResource( 4 )
-modLevel = 1
 levelName = "Evades Extracted"
 
 [node name="Sprite2" type="Sprite" parent="Area 2"]
@@ -191,7 +194,10 @@ script = ExtResource( 8 )
 id = 0
 right_left = true
 area = 2
-is_vin = false
+is_win = false
+end_level = 0
+win_evp = 0
+win_text = ""
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 2/Teleport"]
 position = Vector2( 240, 359 )
@@ -213,7 +219,10 @@ script = ExtResource( 8 )
 id = 1
 right_left = false
 area = 2
-is_vin = false
+is_win = false
+end_level = 0
+win_evp = 0
+win_text = ""
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 2/Teleport2"]
 position = Vector2( 240, 359 )
@@ -272,7 +281,10 @@ script = ExtResource( 8 )
 id = 2
 right_left = true
 area = 2
-is_vin = false
+is_win = false
+end_level = 0
+win_evp = 0
+win_text = ""
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 3/Teleport"]
 modulate = Color( 1, 1, 0.945098, 0.329412 )
@@ -295,7 +307,10 @@ script = ExtResource( 8 )
 id = 2
 right_left = false
 area = 2
-is_vin = false
+is_win = false
+end_level = 0
+win_evp = 0
+win_text = ""
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area 3/Teleport2"]
 position = Vector2( 240, 359 )

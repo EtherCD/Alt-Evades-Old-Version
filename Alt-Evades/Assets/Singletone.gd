@@ -1,12 +1,22 @@
 extends Node
 
-export var id = -1
+export var id = 1;
 export var version = "0.7.2 (Alpha)"
 export var gameName = "Player"
 
+var LevelArea = 1
+
+var serverConnection = false
+
+export var ip = "127.0.0.1"
+export var port = 50001
+
+var _client = NetworkedMultiplayerENet.new()
+var server_status = ""
+
 var extraVP = 0
 
-
+var chLink = ""
 
 var all_herous = [
 	"Batt",
@@ -64,8 +74,9 @@ var hero_info = {
 	}
 }
 
+#Server
 func _ready():
-	pass
+	id=rand_range(1, 1000)
 
 func load_game():
 	var save_game = File.new()
@@ -77,10 +88,14 @@ func load_game():
 	extraVP=data[1]
 	gameName=data[2]
 	
+	if data[3]:
+		ip=data[3]
+		port=data[4]
+	
 	save_game.close()
 
 func save_game():
 	var save_game = File.new()
 	save_game.open("user://savegame.save", File.WRITE)
-	save_game.store_line(to_json([current_herous, extraVP,gameName]))
+	save_game.store_line(to_json([current_herous,extraVP,gameName,ip,port]))
 	save_game.close()

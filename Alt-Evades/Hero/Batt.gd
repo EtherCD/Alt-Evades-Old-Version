@@ -51,6 +51,7 @@ func _add_process():
 			rEnergy = Regen;
 	canUpgradeRegen=not switcher
 	$Dome.visible=switcher
+	$"Camera2D2/Level Label/ServerLabel".text=Singletone.server_status;
 
 #Ability
 func ability1_f():
@@ -72,6 +73,10 @@ func ability1_f():
 	if canAbility1:
 		$Camera2D2/CenteredRect/ColorRect/ColorRect/ability1.modulate = Color(1,1,1,0.45)
 	canAbility1=false
+
+func il_(string, visible_):
+	$"Camera2D2/Level Label/Info Label".visible=visible_;
+	$"Camera2D2/Level Label/Info Label".text=string;
 
 func ability2_f():
 	if mEnergy == 300:
@@ -120,10 +125,10 @@ func _on_TimerAAbility1_timeout():
 func _on_Button_pressed():
 	revive()
 
-
 func _on_Button2_pressed():
 	if cArea == 1:
 		self.global_position=Vector2(3700,self.global_position.y)
 	if cArea >= 2 and cArea <= 40:
 		self.global_position=Vector2(9700,self.global_position.y)
+		Singletone.LevelArea+=1
 	mMovement=false

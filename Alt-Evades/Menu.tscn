@@ -35,19 +35,6 @@ margin_right = 1074.0
 margin_bottom = 592.0
 color = Color( 0.521569, 0.521569, 0.521569, 0 )
 
-[node name="Multi Button" type="Button" parent="ColorRect"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -228.5
-margin_top = -108.0
-margin_right = 228.5
-rect_pivot_offset = Vector2( 235, 51 )
-custom_fonts/font = ExtResource( 1 )
-text = "Multi Player"
-script = ExtResource( 4 )
-
 [node name="Single Button" type="Button" parent="ColorRect"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -70,5 +57,40 @@ custom_fonts/font = ExtResource( 1 )
 text = "Player"
 align = 1
 
-[connection signal="pressed" from="ColorRect/Multi Button" to="." method="_on_Multi_Button_pressed"]
+[node name="Single Button2" type="Button" parent="ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -230.5
+margin_top = 119.5
+margin_right = 226.5
+margin_bottom = 227.5
+rect_pivot_offset = Vector2( -877, -161 )
+custom_fonts/font = ExtResource( 1 )
+disabled = true
+text = "Connect to server"
+script = ExtResource( 4 )
+
+[node name="IP" type="LineEdit" parent="ColorRect/Single Button2"]
+margin_left = -298.0
+margin_top = -104.0
+margin_right = -14.0
+margin_bottom = -25.0
+rect_pivot_offset = Vector2( -13, 17 )
+custom_fonts/font = ExtResource( 1 )
+text = "127.0.0.1"
+align = 1
+
+[node name="Port" type="LineEdit" parent="ColorRect/Single Button2"]
+margin_left = 478.0
+margin_top = -105.0
+margin_right = 762.0
+margin_bottom = -26.0
+rect_pivot_offset = Vector2( 202, 51 )
+custom_fonts/font = ExtResource( 1 )
+text = "50000"
+align = 1
+
 [connection signal="pressed" from="ColorRect/Single Button" to="." method="_on_Single_Button_pressed"]
+[connection signal="pressed" from="ColorRect/Single Button2" to="." method="_on_ClientButton_pressed"]

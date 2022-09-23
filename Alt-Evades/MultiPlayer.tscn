@@ -20,19 +20,11 @@ script = ExtResource( 3 )
 
 [node name="ClientButton" type="Button" parent="Controll"]
 margin_left = 278.0
-margin_top = 430.0
+margin_top = 262.0
 margin_right = 803.0
-margin_bottom = 556.0
+margin_bottom = 388.0
 custom_fonts/font = ExtResource( 1 )
 text = "Connect"
-
-[node name="ServerButton" type="Button" parent="Controll"]
-margin_left = 278.0
-margin_top = 274.0
-margin_right = 805.0
-margin_bottom = 403.0
-custom_fonts/font = ExtResource( 1 )
-text = "Create Server"
 
 [node name="IpEdit" type="LineEdit" parent="Controll"]
 margin_left = 278.0
@@ -44,4 +36,3 @@ text = "127.0.0.1"
 align = 1
 
 [connection signal="pressed" from="Controll/ClientButton" to="Controll" method="_on_ClientButton_pressed"]
-[connection signal="pressed" from="Controll/ServerButton" to="Controll" method="_on_ServerButton_pressed"]

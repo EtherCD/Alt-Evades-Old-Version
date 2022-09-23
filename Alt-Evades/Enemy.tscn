@@ -40,6 +40,7 @@ shape = SubResource( 2 )
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="Node2D"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Area2D"]
 scale = Vector2( 75, 75 )

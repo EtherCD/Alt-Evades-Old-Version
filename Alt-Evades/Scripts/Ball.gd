@@ -88,6 +88,10 @@ func _process(_delta):
 		ability1_f()
 	if ability2 and not AuraPink:
 		ability2_f()
+	if area != Singletone.LevelArea:
+		Singletone.LevelArea=area
+	if  Singletone.LevelArea != area:
+		area=Singletone.LevelArea
 	#if mMovement and mVelocity != velocity:
 	#	mVelocity = velocity;
 	draw_info()

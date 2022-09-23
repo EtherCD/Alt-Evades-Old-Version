@@ -4,9 +4,13 @@ var velocity = Vector2()  # The player's movement vector.
 export(int) var speed = 350;
 export(int) var cType = 0; #4 - Standart, 0 - Dark, 1 - Red, 2 - Blue, 3 - Pink
 export(float) var size = 0.8;
+export(float) var triger_size = 1.0;
+
 var color = Color()
 
 var entered = false
+var triggered = false
+var old_size = Vector2()
 var body = null
 
 # Called when the node enters the scene tree for the first time.
@@ -24,10 +28,14 @@ func _ready():
 		color = Color(0.5,0.5,0.5,1)
 	if cType == 5:
 		color = Color(0.45,0.45,0)
+	if cType == 6:
+		color = Color(0.11, 0.73, 0.45)
+		triger_size = 0.45
 	velocity = Vector2(rand_range(0, 1), rand_range(0, 1))
 	self.modulate = color
 	self.scale = Vector2(size, size)
 	$EnemyArea.name = "Enemy"
+	$Node2D/Area2D.scale = Vector2(triger_size, triger_size);
 	
 	if cType >= 1 and cType <= 3:
 		var aura = preload("res://Aura.tscn").instance()
@@ -50,17 +58,26 @@ func _physics_process(delta):
 			velocity = velocity.normalized() * min(speed, direction_distance)
 		if collision:
 			velocity = velocity.bounce(collision.normal)
+	elif entered and cType == 6 and not triggered:
+		old_size = self.scale
+		self.scale=scale*2
+		if collision:
+			velocity = velocity.bounce(collision.normal)
+		triggered=true
 	else:
 		if collision:
 			velocity = velocity.bounce(collision.normal)
 
 
 func _on_Area2D_body_entered(body):
-	if body.name == "Player":
+	if body.name == "Player" or body.name == "Bot":
 		entered = true
 		self.body=body
 
 func _on_Area2D_body_exited(body):
-	if body.name == "Player":
+	if body.name == "Player" or body.name == "Bot":
 		entered = false
 		self.body=body
+		triggered=false
+		if cType == 6:
+			self.scale=old_size

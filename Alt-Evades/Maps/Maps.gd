@@ -170,7 +170,7 @@ var maps = {
 				"Count": 6,
 				"AreaModifi": true,
 				"AreaCoef": 2.5,
-				"EndLevel": 29
+				"EndLevel": 30
 			},
 			"30": {
 				"Enemy": [
@@ -263,14 +263,6 @@ var maps = {
 			"40": {
 				"Enemy": [
 					{
-						"Type": 4,
-						"StandartSize": 0.45,
-						"Count": 0,
-						"MSize": 0.025,
-						"AreaModifi": false,
-						"AreaCoef": 0
-					},
-					{
 						"Type": 1,
 						"StandartSize": 0.25,
 						"Count": 4,
@@ -309,6 +301,14 @@ var maps = {
 						"MSize": 0.025,
 						"AreaModifi": true,
 						"AreaCoef": 4
+					},
+					{
+						"Type": 4,
+						"StandartSize": 0.45,
+						"Count": 0,
+						"MSize": 0.025,
+						"AreaModifi": false,
+						"AreaCoef": 0
 					}
 				],
 				"Count": 6,
@@ -316,7 +316,10 @@ var maps = {
 				"AreaCoef": 3,
 				"EndLevel": 41
 			}
-		}
+		},
+		"EVPGived": 1,
+		"WinText": "You Won!",
+		"WinLevel": 40
 	}
 }
 
