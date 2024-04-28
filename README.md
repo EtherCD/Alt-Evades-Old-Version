@@ -1,4 +1,6 @@
 # AltEvades
+**Old version of project! First attempt to make game like Evades.io**
+
 * Fork of OpenEvades, more refined and already with most of the improvements
 * Link to OpenEvades: `https://github.com/ollie-d/OpenEvades`
 * Link to Web-Tests: `https://ethercd.github.io/AltEvades/`
